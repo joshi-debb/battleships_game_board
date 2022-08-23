@@ -175,6 +175,7 @@ void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList
         switch (opcion) {
         case 'a':
             cout << "Grafico de Estructura" << endl;
+            listaUsers.doGraphics();
             system("pause");
             break;
 
@@ -182,7 +183,7 @@ void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList
 
             cout << "Grafico de Estructura" << endl;
             structList.Imprimir();
-            structList.GenerarGrafo();
+            structList.doGraphics();
             system("pause");
             break;
 
@@ -208,7 +209,6 @@ void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList
 
 
             listItem.showList();
-            
             system("pause");
             break;
 

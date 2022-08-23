@@ -12,13 +12,13 @@ class nodoHeaderItem
 {
 public:
 
-    listaSimpleItem listainterna;
+    listaSimpleItem inList;
     string categoria;
 
 
-    nodoHeaderItem* sig;
+    nodoHeaderItem* siguiente;
     nodoHeaderItem() {
-        sig = NULL;
+        siguiente = NULL;
     }
 
     void setCat(string c) {

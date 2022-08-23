@@ -2,7 +2,19 @@
 	"usuarios": [
 	{ "nick": "pepe", "password": "asdf", "monedas": "500", "edad": "21" },
 	{ "nick": "pepa", "password": "asdf", "monedas": "3000", "edad": "22" },
-	{ "nick": "papu", "password": "asdf", "monedas": "1000", "edad": "23" }
+	{ "nick": "papu", "password": "asdf", "monedas": "1000", "edad": "23" },
+	{ "nick": "pipe", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "nick": "pipa", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "nick": "pipu", "password": "asdf", "monedas": "1000", "edad": "23" },
+	{ "nick": "tita", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "nick": "tito", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "nick": "tatu", "password": "asdf", "monedas": "1000", "edad": "23" },
+	{ "nick": "toto", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "nick": "memo", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "nick": "memu", "password": "asdf", "monedas": "1000", "edad": "23" },
+	{ "nick": "matu", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "nick": "tutu", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "nick": "tata", "password": "asdf", "monedas": "1000", "edad": "23" }
 	],
 	"articulos": [
 	{ "id": "1", "categoria": "comun", "precio": "100", "nombre": "barco", "src": "ruta" },

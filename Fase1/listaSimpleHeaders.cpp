@@ -52,26 +52,26 @@ void listaSimpleHeaders::Insertar(nodoItem* item, string categoria) {
     if (primero == NULL) {//lista se encuentra vacia
         nodoHeaderItem* nuevo = new nodoHeaderItem();
         nuevo->categoria = categoria;
-        nuevo->listainterna.addToEnd(item);
+        nuevo->inList.addToEnd(item);
         primero = nuevo;
     }
     else {//la lista no se encuentra vacia
         nodoHeaderItem* busqueda = BuscarPrincipal(primero, categoria);
         nodoHeaderItem* nuevo = new nodoHeaderItem();
         nuevo->setCat(categoria);
-        nuevo->listainterna.addToEnd(item);
+        nuevo->inList.addToEnd(item);
         if (busqueda == NULL) {
             nodoHeaderItem* auxActual = primero;
             while (auxActual != NULL) {
-                if (auxActual->sig == NULL) {
-                    auxActual->sig = nuevo;
+                if (auxActual->siguiente == NULL) {
+                    auxActual->siguiente = nuevo;
                     break;
                 }
-                auxActual = auxActual->sig;
+                auxActual = auxActual->siguiente;
             }
         }
         else {//si la categoria existe se inserta en la misma
-            busqueda->listainterna.addToEnd(item);
+            busqueda->inList.addToEnd(item);
         }
     }
 }
@@ -86,7 +86,7 @@ nodoHeaderItem* listaSimpleHeaders::BuscarPrincipal(nodoHeaderItem* primeroL, st
             if (auxActual->getCat() == categoria) {
                 break;
             }
-            auxActual = auxActual->sig;
+            auxActual = auxActual->siguiente;
         }
         return auxActual;
     }
@@ -97,20 +97,20 @@ void listaSimpleHeaders::Imprimir() {
     nodoHeaderItem* aux = primero;
     while (aux != NULL) {
         cout << "[" << aux->getCat() << "]->";
-        nodoItem* auxI = aux->listainterna.primero;
-        while (auxI != NULL) {
-            cout << "[" << auxI->getCategory() << auxI->getName() << "]->";
-            auxI = auxI->siguiente;
+        nodoItem* aux2 = aux->inList.primero;
+        while (aux2 != NULL) {
+            cout << "[" << aux2->getCategory() << aux2->getName() << "]->";
+            aux2 = aux2->siguiente;
         }
         cout << ("NULL");
         cout << ("\n | \n");
-        aux = aux->sig;
+        aux = aux->siguiente;
     }
 }
 
 
 
-void listaSimpleHeaders::GenerarGrafo() {
+void listaSimpleHeaders::doGraphics() {
     string dot = "";
 
     dot += "digraph G {\n";
@@ -121,13 +121,13 @@ void listaSimpleHeaders::GenerarGrafo() {
     while (aux != NULL) {
         dot += "N" + (aux->getCat()) + "[label=\"" + (aux->getCat()) + "\"];\n";
 
-        nodoItem* auxI = aux->listainterna.primero;
-        while (auxI != NULL) {
-            dot += "N" + (auxI->getName()) + "[label=\"" + (auxI->getName()) + "\"];\n";
-            auxI = auxI->siguiente;
+        nodoItem* aux2 = aux->inList.primero;
+        while (aux2 != NULL) {
+            dot += "N" + (aux2->getName()) + "[label=\"" + (aux2->getName()) + "\"];\n";
+            aux2 = aux2->siguiente;
         }
 
-        aux = aux->sig;
+        aux = aux->siguiente;
     }
 
         dot += "{rank=same;\n";
@@ -135,10 +135,10 @@ void listaSimpleHeaders::GenerarGrafo() {
             aux = primero;
             while (aux != NULL) {
                 dot += "N" + (aux->getCat());
-                if (aux->sig != NULL) {
+                if (aux->siguiente != NULL) {
                     dot += "->";
                 }
-                aux = aux->sig;
+                aux = aux->siguiente;
             }
 
         dot += "}\n";
@@ -149,16 +149,16 @@ void listaSimpleHeaders::GenerarGrafo() {
                 dot += "{rank=none;\n";
                 dot += "N" + (aux->getCat()) + "->";
 
-                nodoItem* auxI = aux->listainterna.primero;
-                while (auxI != NULL) {
-                    dot += "N" + (auxI->getName());
-                    if (auxI->siguiente != NULL) {
+                nodoItem* aux2 = aux->inList.primero;
+                while (aux2 != NULL) {
+                    dot += "N" + (aux2->getName());
+                    if (aux2->siguiente != NULL) {
                         dot += "->";
                     }
-                    auxI = auxI->siguiente;
+                    aux2 = aux2->siguiente;
                 }
 
-                aux = aux->sig;
+                aux = aux->siguiente;
                 dot += "}\n";
             }
     
@@ -167,12 +167,12 @@ void listaSimpleHeaders::GenerarGrafo() {
     cout << dot;
 
     ofstream file;
-    file.open("Pruebas.dot");
+    file.open("listaDeListas.dot");
     file << dot;
     file.close();
 
-    system(("dot -Tpng Pruebas.dot -o  Pruebas.png"));
+    system(("dot -Tpng listaDeListas.dot -o  listaDeListas.png"));
 
-    system(("Pruebas.png"));
+    system(("listaDeListas.png"));
 
 }

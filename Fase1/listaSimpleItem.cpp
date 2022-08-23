@@ -46,24 +46,24 @@ void listaSimpleItem::addToEnd(nodoItem* item) {
     nodoItem* actual = new nodoItem();
     actual = item;
 
-    if (primero == NULL) {//Si la lista se encuentra vacia
+    if (primero == NULL) {
         primero = actual;
     }
-    else {//si la lista no esta vacia
+    else {
         nodoItem* auxActual = primero;
         nodoItem* auxSiguiente;
         while (auxActual != NULL) {
             auxSiguiente = auxActual->siguiente;
-            if (actual->getPrice() < auxActual->getPrice()) {//insertar al inicio de la lista por que es menor
+            if (actual->getPrice() < auxActual->getPrice()) {
                 actual->siguiente = auxActual;
                 primero = actual;
                 break;
             }
-            else if (auxSiguiente == NULL) {//insertar al final de la lista
+            else if (auxSiguiente == NULL) {
                 auxActual->siguiente = actual;
                 break;
             }
-            else if (actual->getPrice() < auxSiguiente->getPrice()) {//insertar en medio de la lista
+            else if (actual->getPrice() < auxSiguiente->getPrice()) {
                 auxActual->siguiente = actual;
                 actual->siguiente = auxSiguiente;
                 break;
@@ -79,7 +79,7 @@ void listaSimpleItem::showList() {
     nodoItem* actual = new nodoItem();
     actual = primero;
 
-    cout << "\n\n\tTienda: " << endl;
+    cout << "\n\n>Tienda: " << endl;
 
     cout << " Id: " << "Nombre:\t\t\t " << "Categoria:\t\t " << "Precio: " << endl;
 

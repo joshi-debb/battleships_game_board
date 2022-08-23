@@ -97,7 +97,7 @@ void listaCircularUser::login(listaCircularUser listaUsers) {
         } while (actual != primero && encontrado != true);
 
         if (!encontrado) {
-            cout << "\n usuario no Encontrado\n\n";
+            cout << "\n>usuario no Encontrado\n\n";
         }
     }
 }
@@ -247,9 +247,12 @@ bool listaCircularUser::deleteUser() {
 void listaCircularUser::showList() {
     nodoUser* actual = new nodoUser();
     actual = primero;
+
+    cout << ">Listado de Usuarios: " << endl;
+
     if (primero != NULL) {
         do {
-            cout << "\tNombre: " << actual->getNick() << "\tPassword: " << actual->getPassword() << \
+            cout << " Nombre: " << actual->getNick() << "\tPassword: " << actual->getPassword() << \
                 "\tAge: " << actual->getAge() << "\tCoins: " << actual->getCoins() << "\n";
             actual = actual->siguiente;
         } while (actual != primero);
@@ -257,4 +260,54 @@ void listaCircularUser::showList() {
     else {
         cout << "\n>La lista se Encuentra Vacia\n\n";
     }
+}
+
+
+void listaCircularUser::doGraphics() {
+    string dot = "";
+
+    dot += "digraph G {\n";
+    dot += +"label=\"Estructura: Lista Circular\";\n";
+    dot += +"node [shape=box];\n";
+
+    nodoUser* aux = primero;
+        do {
+            dot += "N" + (aux->getNick()) + "[label=\"" + (aux->getNick()) + "\"];\n";
+            aux = aux->siguiente;
+        } while (aux != primero);
+
+    
+        dot += "{rank=same;\n";
+        aux = primero;
+        do {
+            dot += "N" + (aux->getNick());
+            dot += "->";
+            aux = aux->siguiente;
+            
+        } while (aux != primero);
+
+        ultimo = primero;
+        do {
+            dot += "N" + (aux->getNick());
+            dot += "->";
+            aux = aux->atras;
+
+        } while (aux != ultimo);
+        dot += "N" + (aux->getNick());
+        dot += "}\n";
+
+
+    dot += "}\n";
+
+    cout << dot;
+
+    ofstream file;
+    file.open("listaCiruclar.dot");
+    file << dot;
+    file.close();
+
+    system(("dot -Tpng listaCiruclar.dot -o  listaCiruclar.png"));
+
+    system(("listaCiruclar.png"));
+
 }

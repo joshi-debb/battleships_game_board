@@ -21,6 +21,7 @@ public:
     void addToEnd(nodoUser* user);
     void login(listaCircularUser listaUsers);
     void showList();
+    void doGraphics();
     void editInfo(string);
     bool deleteUser();
 

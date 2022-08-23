@@ -1,0 +1,21 @@
+digraph G {
+label="Estructura: Lista Circular";
+node [shape=box];
+Npepe[label="pepe"];
+Npepa[label="pepa"];
+Npapu[label="papu"];
+Npipe[label="pipe"];
+Npipa[label="pipa"];
+Npipu[label="pipu"];
+Ntita[label="tita"];
+Ntito[label="tito"];
+Ntatu[label="tatu"];
+Ntoto[label="toto"];
+Nmemo[label="memo"];
+Nmemu[label="memu"];
+Nmatu[label="matu"];
+Ntutu[label="tutu"];
+Ntata[label="tata"];
+{rank=same;
+Npepe->Npepa->Npapu->Npipe->Npipa->Npipu->Ntita->Ntito->Ntatu->Ntoto->Nmemo->Nmemu->Nmatu->Ntutu->Ntata->Npepe->Ntata->Ntutu->Nmatu->Nmemu->Nmemo->Ntoto->Ntatu->Ntito->Ntita->Npipu->Npipa->Npipe->Npapu->Npepa->Npepe}
+}
