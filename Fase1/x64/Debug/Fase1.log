@@ -1,0 +1,8 @@
+﻿  listaCircularUser.cpp
+G:\Mi unidad\Universidad\06-Segundo semestre 2022\02 - EDD\Lab\[EDD_2S]BatallaNaval_202006353\Fase1\listaCircularUser.cpp(29,23): warning C4018: '<': no coinciden signed/unsigned
+  listaSimpleHeaders.cpp
+G:\Mi unidad\Universidad\06-Segundo semestre 2022\02 - EDD\Lab\[EDD_2S]BatallaNaval_202006353\Fase1\listaSimpleHeaders.cpp(34,23): warning C4018: '<': no coinciden signed/unsigned
+  listaSimpleItem.cpp
+G:\Mi unidad\Universidad\06-Segundo semestre 2022\02 - EDD\Lab\[EDD_2S]BatallaNaval_202006353\Fase1\listaSimpleItem.cpp(28,23): warning C4018: '<': no coinciden signed/unsigned
+  Generando código...
+  Fase1.vcxproj -> G:\Mi unidad\Universidad\06-Segundo semestre 2022\02 - EDD\Lab\[EDD_2S]BatallaNaval_202006353\Fase1\x64\Debug\Fase1.exe

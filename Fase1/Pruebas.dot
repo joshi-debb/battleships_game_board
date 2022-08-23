@@ -1,0 +1,39 @@
+digraph G {
+label="Estructura: Lista De Listas";
+node [shape=box];
+Ncomun[label="comun"];
+Nbarco[label="barco"];
+Nsombrero[label="sombrero"];
+Nskin[label="skin"];
+Nbarco[label="barco"];
+Nsombrero[label="sombrero"];
+Nskin[label="skin"];
+Npintura[label="pintura"];
+Npintura[label="pintura"];
+Nvela[label="vela"];
+Nrata[label="rata"];
+Nvela[label="vela"];
+Nrata[label="rata"];
+Nepico[label="epico"];
+Npapa[label="papa"];
+Nescopeta[label="escopeta"];
+Npata[label="pata"];
+Npapa[label="papa"];
+Nescopeta[label="escopeta"];
+Npata[label="pata"];
+Nlegendario[label="legendario"];
+Nbala[label="bala"];
+Nbala[label="bala"];
+Nfuego[label="fuego"];
+Ntimon[label="timon"];
+Nfuego[label="fuego"];
+Ntimon[label="timon"];
+{rank=same;
+Ncomun->Nepico->Nlegendario}
+{rank=none;
+Ncomun->Nbarco->Nsombrero->Nskin->Nbarco->Nsombrero->Nskin->Npintura->Npintura->Nvela->Nrata->Nvela->Nrata}
+{rank=none;
+Nepico->Npapa->Nescopeta->Npata->Npapa->Nescopeta->Npata}
+{rank=none;
+Nlegendario->Nbala->Nbala->Nfuego->Ntimon->Nfuego->Ntimon}
+}
