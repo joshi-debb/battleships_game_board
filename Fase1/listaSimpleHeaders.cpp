@@ -1,7 +1,5 @@
 
 
-
-
 #include <fstream>
 
 #include "json/json.h"
@@ -19,8 +17,6 @@
 
 using namespace std;
 using std::stoi;
-
-
 
 
 void listaSimpleHeaders::loadFile(string ruta) {
@@ -49,13 +45,13 @@ void listaSimpleHeaders::loadFile(string ruta) {
 
 
 void listaSimpleHeaders::Insertar(nodoItem* item, string categoria) {
-    if (primero == NULL) {//lista se encuentra vacia
+    if (primero == NULL) {
         nodoHeaderItem* nuevo = new nodoHeaderItem();
         nuevo->categoria = categoria;
         nuevo->inList.addToEnd(item);
         primero = nuevo;
     }
-    else {//la lista no se encuentra vacia
+    else {
         nodoHeaderItem* busqueda = BuscarPrincipal(primero, categoria);
         nodoHeaderItem* nuevo = new nodoHeaderItem();
         nuevo->setCat(categoria);
@@ -70,7 +66,7 @@ void listaSimpleHeaders::Insertar(nodoItem* item, string categoria) {
                 auxActual = auxActual->siguiente;
             }
         }
-        else {//si la categoria existe se inserta en la misma
+        else {
             busqueda->inList.addToEnd(item);
         }
     }
@@ -92,8 +88,7 @@ nodoHeaderItem* listaSimpleHeaders::BuscarPrincipal(nodoHeaderItem* primeroL, st
     }
 }
 
-
-void listaSimpleHeaders::Imprimir() {
+void listaSimpleHeaders::showStruct() {
     nodoHeaderItem* aux = primero;
     while (aux != NULL) {
         cout << "[" << aux->getCat() << "]->";
@@ -108,7 +103,17 @@ void listaSimpleHeaders::Imprimir() {
     }
 }
 
-
+void listaSimpleHeaders::showList() {
+    nodoHeaderItem* aux = primero;
+    while (aux != NULL) {
+        nodoItem* aux2 = aux->inList.primero;
+        while (aux2 != NULL) {
+            cout << "Id: " << aux2->getId() << "\t Name: " << aux2->getName() << "\t Categoria: " << aux2->getCategory() << "\t Precio: " << aux2->getPrice() << endl;
+            aux2 = aux2->siguiente;
+        }
+        aux = aux->siguiente;
+    }
+}
 
 void listaSimpleHeaders::doGraphics() {
     string dot = "";
@@ -119,11 +124,12 @@ void listaSimpleHeaders::doGraphics() {
 
     nodoHeaderItem* aux = primero;
     while (aux != NULL) {
-        dot += "N" + (aux->getCat()) + "[label=\"" + (aux->getCat()) + "\"];\n";
+        dot += "\"" + aux->getCat() + "\"" + "[label=\"" + aux->getCat() + "\"];\n";
+        
 
         nodoItem* aux2 = aux->inList.primero;
         while (aux2 != NULL) {
-            dot += "N" + (aux2->getName()) + "[label=\"" + (aux2->getName()) + "\"];\n";
+            dot += "\"" + aux2->getName() + "\"" + "[label=\"" + aux2->getName() + "\"];\n";
             aux2 = aux2->siguiente;
         }
 
@@ -134,7 +140,7 @@ void listaSimpleHeaders::doGraphics() {
 
             aux = primero;
             while (aux != NULL) {
-                dot += "N" + (aux->getCat());
+                dot += "\"" + aux->getCat() + "\"";
                 if (aux->siguiente != NULL) {
                     dot += "->";
                 }
@@ -147,11 +153,11 @@ void listaSimpleHeaders::doGraphics() {
             aux = primero;
             while (aux != NULL) {
                 dot += "{rank=none;\n";
-                dot += "N" + (aux->getCat()) + "->";
+                dot += "\"" + aux->getCat() + "\"" + "->";
 
                 nodoItem* aux2 = aux->inList.primero;
                 while (aux2 != NULL) {
-                    dot += "N" + (aux2->getName());
+                    dot += "\"" + aux2->getName() + "\"";
                     if (aux2->siguiente != NULL) {
                         dot += "->";
                     }

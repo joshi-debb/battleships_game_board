@@ -5,13 +5,15 @@
 
 #include "listaCircularUser.h"
 #include "listaSimpleHeaders.h"
+#include "listaSimplePlays.h"
 #include "listaSimpleItem.h"
+#include "colaTutorial.h"
 #include "nodoUser.h"
+#include "nodoPlays.h"
 
 
 // menus
-void menu::main_menu(listaCircularUser listaUsers, listaSimpleHeaders structList, listaSimpleItem listItem) {
-
+void menu::main_menu(listaCircularUser listaUsers, listaSimpleHeaders structList, listaSimpleItem listItem, colaTutorial queue, listaSimplePlays* stack) {
 
     nodoUser* nuevo;
 
@@ -40,13 +42,14 @@ void menu::main_menu(listaCircularUser listaUsers, listaSimpleHeaders structList
         switch (opcion) {
             case '1':
 
-                cout << "Bienvenido a la carga masiva!";
+                cout << "Bienvenido a la carga masiva!" << endl;
                 cout << "Ingrese el nombre de su archivo con extension: " << endl;
                 cin >> ruta;
 
                 listaUsers.loadFile(ruta);
                 structList.loadFile(ruta);
                 listItem.loadFile(ruta);
+                queue.loadFile(ruta);
                 system("pause");
                 break;
 
@@ -69,13 +72,13 @@ void menu::main_menu(listaCircularUser listaUsers, listaSimpleHeaders structList
                 break;
 
             case '3':
-                listaUsers.login(listaUsers);
+                listaUsers.login(listaUsers,listItem,queue,stack);
                 system("pause");
                 break;
 
             case '4':
 
-                third_menu(listaUsers,structList,listItem);
+                third_menu(listaUsers,structList,listItem,queue,stack);
                 system("pause");
                 break;
 
@@ -91,15 +94,26 @@ void menu::main_menu(listaCircularUser listaUsers, listaSimpleHeaders structList
     } while (repetir);
 }
 
-void menu::sec_menu(listaCircularUser listaUsers, string _nick) {
+void menu::sec_menu(listaCircularUser listaUsers,nodoUser* user,listaSimpleItem listaItems,colaTutorial queue,listaSimplePlays* stack) {
+
+    listaSimplePlays* newStack = new listaSimplePlays();
+    newStack = stack;
+
+    nodoUser* nuevoUser = new nodoUser();
+    nuevoUser = user;
+
+    nodoPlays* nuevo = new nodoPlays();
 
     char opcion;
     bool repetir = true;
+    int coins = 0;
+    int posX = 0;
+    int posY = 0;
 
     do {
         system("cls");
 
-        cout << "\n\n>Usuario Activo: " << _nick << "\n\n";
+        cout << "\n\n>Usuario Activo: " << nuevoUser->getNick() << "\n\n";
 
         cout << "a. Editar Informacion" << endl;
         cout << "b. Eliminar Cuenta" << endl;
@@ -113,12 +127,12 @@ void menu::sec_menu(listaCircularUser listaUsers, string _nick) {
 
         switch (opcion) {
         case 'a':
-            listaUsers.editInfo(_nick);
+            listaUsers.editInfo(nuevoUser->getNick());
             system("pause");
             break;
 
         case 'b':
-            if (listaUsers.deleteUser() == true) {
+            if (listaUsers.deleteUser(nuevoUser->getNick(),nuevoUser->getPassword()) == true) {
                 repetir = false;
             }
             system("pause");
@@ -126,16 +140,20 @@ void menu::sec_menu(listaCircularUser listaUsers, string _nick) {
 
         case 'c':
 
+            queue.showQueue();
             system("pause");
             break;
 
         case 'd':
 
+            listaItems.showList();
             system("pause");
             break;
 
         case 'e':
 
+            newStack->doGamePlays(nuevoUser);
+            
             system("pause");
             break;
 
@@ -151,7 +169,13 @@ void menu::sec_menu(listaCircularUser listaUsers, string _nick) {
     } while (repetir);
 }
 
-void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList,listaSimpleItem listItem) {
+void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList,listaSimpleItem listItem,colaTutorial queue,listaSimplePlays* stack) {
+
+    listaSimplePlays* newStack = new listaSimplePlays();
+    listaSimpleItem listaOrd;
+
+    newStack = stack;
+
 
     char opcion;
     bool repetir = true;
@@ -164,7 +188,7 @@ void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList
         cout << "a. Lista Ciruclar" << endl;
         cout << "b. Lista de Listas" << endl;
         cout << "c. Cola de Movimientos" << endl;
-        cout << "d. Pila de Pilas" << endl;
+        cout << "d. Lista de Pilas" << endl;
         cout << "e. Listado de Usuarios" << endl;
         cout << "f. Listado de Articulos" << endl;
         cout << "g. salir de reportes" << endl;
@@ -182,33 +206,48 @@ void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList
         case 'b':
 
             cout << "Grafico de Estructura" << endl;
-            structList.Imprimir();
+            structList.showStruct();
             structList.doGraphics();
             system("pause");
             break;
 
-        case 'c':\
+        case 'c':
 
             cout << "Grafico de Estructura" << endl;
+            queue.doGraphics();
             system("pause");
             break;
 
         case 'd':
 
             cout << "Grafico de Estructura" << endl;
+            newStack->showStruct();
+            newStack->doGraphics();
             system("pause");
             break;
 
         case 'e':
 
+            cout << "\n\nDespliegue Ascendente: " << endl;
+            listaUsers.bubbleSortUP(listaUsers);
+            listaUsers.showList();
+
+            cout << "\n\nDespliegue Descendente: " << endl;
+            listaUsers.bubbleSortDW(listaUsers);
             listaUsers.showList();
             system("pause");
             break;
 
         case 'f':
-
-
+            
+            cout << "\n\nDespliegue Ascendente: " << endl;
+            listItem.bubbleSortUP(listItem);
             listItem.showList();
+
+            cout << "\n\nDespliegue Descendente: " << endl;
+            listItem.bubbleSortDW(listItem);
+            listItem.showList();
+
             system("pause");
             break;
 

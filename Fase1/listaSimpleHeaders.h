@@ -17,7 +17,8 @@ public:
     }
 
     void loadFile(string ruta);
-    void Imprimir();
+    void showStruct();
+    void showList();
     void doGraphics();
     void Insertar(nodoItem* item, string categoria);
     nodoHeaderItem* BuscarPrincipal(nodoHeaderItem* inicioL, string categoria);

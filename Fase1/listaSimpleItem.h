@@ -12,9 +12,11 @@ class listaSimpleItem
 public:
 
     nodoItem* primero;
+    nodoItem* ultimo;
 
     listaSimpleItem() {
         primero = NULL;
+        ultimo = NULL;
 
     }
 
@@ -22,6 +24,8 @@ public:
     void loadFile(string ruta);
     void addToEnd(nodoItem* item);
     void showList();
+    void bubbleSortUP(listaSimpleItem listaItems);
+    void bubbleSortDW(listaSimpleItem listaItems);
 
 private:
 };

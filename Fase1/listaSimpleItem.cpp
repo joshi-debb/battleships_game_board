@@ -1,4 +1,7 @@
 
+
+
+
 #include <fstream>
 
 #include "json/json.h"
@@ -6,16 +9,10 @@
 #include <memory>
 #include <string>
 
-
-
 using namespace std;
-
 
 #include "listaSimpleItem.h"
 #include "nodoItem.h"
-
-
-
 
 void listaSimpleItem::loadFile(string ruta) {
 
@@ -41,55 +38,121 @@ void listaSimpleItem::loadFile(string ruta) {
     }
 }
 
-
 void listaSimpleItem::addToEnd(nodoItem* item) {
     nodoItem* actual = new nodoItem();
     actual = item;
 
     if (primero == NULL) {
         primero = actual;
+        primero->siguiente = NULL;
+        ultimo = actual;
     }
     else {
-        nodoItem* auxActual = primero;
-        nodoItem* auxSiguiente;
-        while (auxActual != NULL) {
-            auxSiguiente = auxActual->siguiente;
-            if (actual->getPrice() < auxActual->getPrice()) {
-                actual->siguiente = auxActual;
-                primero = actual;
-                break;
-            }
-            else if (auxSiguiente == NULL) {
-                auxActual->siguiente = actual;
-                break;
-            }
-            else if (actual->getPrice() < auxSiguiente->getPrice()) {
-                auxActual->siguiente = actual;
-                actual->siguiente = auxSiguiente;
-                break;
-            }
-            auxActual = auxActual->siguiente;
-        }
+        ultimo->siguiente = actual;
+        actual->siguiente = NULL;
+        ultimo = actual;
     }
+    cout << "\n Item Ingresado\n\n";
 }
-
-
 
 void listaSimpleItem::showList() {
     nodoItem* actual = new nodoItem();
+
     actual = primero;
 
-    cout << "\n\n>Tienda: " << endl;
+    cout << "\n>Tienda: " << endl;
 
-    cout << " Id: " << "Nombre:\t\t\t " << "Categoria:\t\t " << "Precio: " << endl;
+    cout << " Id:" << "\tNombre:\t\t\t " << "Categoria:\t\t " << " Precio: " << endl;
 
     if (primero != NULL) {
         while (actual != NULL) {
-            cout << " " << actual->getId() << "\t" << actual->getName() << "\t\t\t " << actual->getCategory() << "\t\t " << actual->getPrice() << endl;
+            cout << " " << actual->getId() << "\t" << actual->getName() << "\t\t\t " << actual->getCategory() << "\t\t\t " << actual->getPrice() << endl;
             actual = actual->siguiente;
         }
     }
     else {
         cout << "\nLista Vacia!" << endl;
+    }
+}
+
+void listaSimpleItem::bubbleSortUP(listaSimpleItem listaItems) {
+
+    if (listaItems.primero != NULL) {
+        nodoItem* pivote = NULL, *actual = NULL;
+
+        string id, category, name, src;
+        int price = 0;
+
+
+        pivote = listaItems.primero;
+        while (pivote != listaItems.ultimo) {
+            actual = pivote->siguiente;
+            while (actual != NULL) {
+                if (pivote->getPrice() > actual->getPrice()) {
+
+                    id = pivote->getId();
+                    category = pivote->getCategory();
+                    name = pivote->getName();
+                    src = pivote->getSrc();
+                    price = pivote->getPrice();
+
+                    pivote->setId(actual->getId());
+                    pivote->setCategory(actual->getCategory());
+                    pivote->setName(actual->getName());
+                    pivote->setSrc(actual->getSrc());
+                    pivote->setPrice(actual->getPrice());
+
+                    actual->setId(id);
+                    actual->setCategory(category);
+                    actual->setName(name);
+                    actual->setSrc(src);
+                    actual->setPrice(price);
+          
+                }
+                actual = actual->siguiente;
+            }
+            pivote = pivote->siguiente;
+        }
+    }
+}
+
+void listaSimpleItem::bubbleSortDW(listaSimpleItem listaItems) {
+
+    if (listaItems.primero != NULL) {
+        nodoItem* pivote = NULL, * actual = NULL;
+
+        string id, category, name, src;
+        int price = 0;
+
+
+        pivote = listaItems.primero;
+        while (pivote != listaItems.ultimo) {
+            actual = pivote->siguiente;
+            while (actual != NULL) {
+                if (pivote->getPrice() < actual->getPrice()) {
+
+                    id = pivote->getId();
+                    category = pivote->getCategory();
+                    name = pivote->getName();
+                    src = pivote->getSrc();
+                    price = pivote->getPrice();
+
+                    pivote->setId(actual->getId());
+                    pivote->setCategory(actual->getCategory());
+                    pivote->setName(actual->getName());
+                    pivote->setSrc(actual->getSrc());
+                    pivote->setPrice(actual->getPrice());
+
+                    actual->setId(id);
+                    actual->setCategory(category);
+                    actual->setName(name);
+                    actual->setSrc(src);
+                    actual->setPrice(price);
+
+                }
+                actual = actual->siguiente;
+            }
+            pivote = pivote->siguiente;
+        }
     }
 }

@@ -1,27 +1,338 @@
 digraph G {
 label="Estructura: Lista De Listas";
 node [shape=box];
-Ncomun[label="comun"];
-Nbarco[label="barco"];
-Nsombrero[label="sombrero"];
-Nskin[label="skin"];
-Npintura[label="pintura"];
-Nvela[label="vela"];
-Nrata[label="rata"];
-Nepico[label="epico"];
-Npapa[label="papa"];
-Nescopeta[label="escopeta"];
-Npata[label="pata"];
-Nlegendario[label="legendario"];
-Nbala[label="bala"];
-Nfuego[label="fuego"];
-Ntimon[label="timon"];
+"Granite Surfaces"[label="Granite Surfaces"];
+"Colobus guerza"[label="Colobus guerza"];
+"Pseudalopex gymnocercus"[label="Pseudalopex gymnocercus"];
+"Grus rubicundus"[label="Grus rubicundus"];
+"Hippotragus equinus"[label="Hippotragus equinus"];
+"Roofing (Metal)"[label="Roofing (Metal)"];
+"Crax sp."[label="Crax sp."];
+"Bubalus arnee"[label="Bubalus arnee"];
+"Oryx gazella callotis"[label="Oryx gazella callotis"];
+"Myrmecophaga tridactyla"[label="Myrmecophaga tridactyla"];
+"Alectura lathami"[label="Alectura lathami"];
+"Butorides striatus"[label="Butorides striatus"];
+"Phoenicopterus ruber"[label="Phoenicopterus ruber"];
+"Globicephala melas"[label="Globicephala melas"];
+"Waterproofing & Caulking"[label="Waterproofing & Caulking"];
+"Lepus townsendii"[label="Lepus townsendii"];
+"Lycosa godeffroyi"[label="Lycosa godeffroyi"];
+"Bison bison"[label="Bison bison"];
+"Meleagris gallopavo"[label="Meleagris gallopavo"];
+"Phasianus colchicus"[label="Phasianus colchicus"];
+"Larus dominicanus"[label="Larus dominicanus"];
+"Ramphastos tucanus"[label="Ramphastos tucanus"];
+"HVAC"[label="HVAC"];
+"Lemur catta"[label="Lemur catta"];
+"Lepus townsendii"[label="Lepus townsendii"];
+"Gazella thompsonii"[label="Gazella thompsonii"];
+"unavailable"[label="unavailable"];
+"Chlidonias leucopterus"[label="Chlidonias leucopterus"];
+"Passer domesticus"[label="Passer domesticus"];
+"Phascogale calura"[label="Phascogale calura"];
+"Heloderma horridum"[label="Heloderma horridum"];
+"Site Furnishings"[label="Site Furnishings"];
+"Manouria emys"[label="Manouria emys"];
+"Macropus rufus"[label="Macropus rufus"];
+"Hippotragus niger"[label="Hippotragus niger"];
+"Antechinus flavipes"[label="Antechinus flavipes"];
+"Hystrix cristata"[label="Hystrix cristata"];
+"Fregata magnificans"[label="Fregata magnificans"];
+"Varanus salvator"[label="Varanus salvator"];
+"Buteo regalis"[label="Buteo regalis"];
+"Doors, Frames & Hardware"[label="Doors, Frames & Hardware"];
+"Hystrix cristata"[label="Hystrix cristata"];
+"Vanellus chilensis"[label="Vanellus chilensis"];
+"Mephitis mephitis"[label="Mephitis mephitis"];
+"Papio cynocephalus"[label="Papio cynocephalus"];
+"Leptoptilos crumeniferus"[label="Leptoptilos crumeniferus"];
+"Diomedea irrorata"[label="Diomedea irrorata"];
+"Hymenolaimus malacorhynchus"[label="Hymenolaimus malacorhynchus"];
+"Construction Clean and Final Clean"[label="Construction Clean and Final Clean"];
+"Hystrix indica"[label="Hystrix indica"];
+"Spilogale gracilis"[label="Spilogale gracilis"];
+"Bison bison"[label="Bison bison"];
+"Zosterops pallidus"[label="Zosterops pallidus"];
+"Hyaena hyaena"[label="Hyaena hyaena"];
+"Choriotis kori"[label="Choriotis kori"];
+"Choloepus hoffmani"[label="Choloepus hoffmani"];
+"Limosa haemastica"[label="Limosa haemastica"];
+"Painting & Vinyl Wall Covering"[label="Painting & Vinyl Wall Covering"];
+"Dendrocitta vagabunda"[label="Dendrocitta vagabunda"];
+"Acrobates pygmaeus"[label="Acrobates pygmaeus"];
+"Eira barbata"[label="Eira barbata"];
+"Temp Fencing, Decorative Fencing and Gates"[label="Temp Fencing, Decorative Fencing and Gates"];
+"Damaliscus lunatus"[label="Damaliscus lunatus"];
+"Aonyx cinerea"[label="Aonyx cinerea"];
+"Ephippiorhynchus mycteria"[label="Ephippiorhynchus mycteria"];
+"Phoeniconaias minor"[label="Phoeniconaias minor"];
+"Kobus defassa"[label="Kobus defassa"];
+"Coendou prehensilis"[label="Coendou prehensilis"];
+"Grus antigone"[label="Grus antigone"];
+"Curb & Gutter"[label="Curb & Gutter"];
+"Castor canadensis"[label="Castor canadensis"];
+"Framing (Wood)"[label="Framing (Wood)"];
+"Anitibyx armatus"[label="Anitibyx armatus"];
+"Hystrix cristata"[label="Hystrix cristata"];
+"Lama glama"[label="Lama glama"];
+"Thalasseus maximus"[label="Thalasseus maximus"];
+"Chelodina longicollis"[label="Chelodina longicollis"];
+"Vulpes chama"[label="Vulpes chama"];
+"Scolopax minor"[label="Scolopax minor"];
+"Callorhinus ursinus"[label="Callorhinus ursinus"];
+"Globicephala melas"[label="Globicephala melas"];
+"Plumbing & Medical Gas"[label="Plumbing & Medical Gas"];
+"Nucifraga columbiana"[label="Nucifraga columbiana"];
+"Phalacrocorax niger"[label="Phalacrocorax niger"];
+"Cervus elaphus"[label="Cervus elaphus"];
+"Erethizon dorsatum"[label="Erethizon dorsatum"];
+"Electrical and Fire Alarm"[label="Electrical and Fire Alarm"];
+"Dasypus septemcincus"[label="Dasypus septemcincus"];
+"Macropus agilis"[label="Macropus agilis"];
+"Sylvicapra grimma"[label="Sylvicapra grimma"];
+"Dasyurus viverrinus"[label="Dasyurus viverrinus"];
+"Madoqua kirkii"[label="Madoqua kirkii"];
+"Spheniscus mendiculus"[label="Spheniscus mendiculus"];
+"Glass & Glazing"[label="Glass & Glazing"];
+"Ploceus rubiginosus"[label="Ploceus rubiginosus"];
+"Ictalurus furcatus"[label="Ictalurus furcatus"];
+"Orcinus orca"[label="Orcinus orca"];
+"Phoenicopterus ruber"[label="Phoenicopterus ruber"];
+"Macaca fuscata"[label="Macaca fuscata"];
+"Haematopus ater"[label="Haematopus ater"];
+"Ornamental Railings"[label="Ornamental Railings"];
+"Damaliscus dorcas"[label="Damaliscus dorcas"];
+"Bettongia penicillata"[label="Bettongia penicillata"];
+"Grus canadensis"[label="Grus canadensis"];
+"Canis lupus lycaon"[label="Canis lupus lycaon"];
+"Tauraco porphyrelophus"[label="Tauraco porphyrelophus"];
+"Vulpes vulpes"[label="Vulpes vulpes"];
+"Aonyx capensis"[label="Aonyx capensis"];
+"Macropus rufogriseus"[label="Macropus rufogriseus"];
+"Ciconia ciconia"[label="Ciconia ciconia"];
+"RF Shielding"[label="RF Shielding"];
+"Ara chloroptera"[label="Ara chloroptera"];
+"Amblyrhynchus cristatus"[label="Amblyrhynchus cristatus"];
+"Sitework & Site Utilities"[label="Sitework & Site Utilities"];
+"Dusicyon thous"[label="Dusicyon thous"];
+"Mungos mungo"[label="Mungos mungo"];
+"Fregata magnificans"[label="Fregata magnificans"];
+"unavailable"[label="unavailable"];
+"Amblyrhynchus cristatus"[label="Amblyrhynchus cristatus"];
+"Tayassu tajacu"[label="Tayassu tajacu"];
+"Snycerus caffer"[label="Snycerus caffer"];
+"Papio ursinus"[label="Papio ursinus"];
+"Fire Protection"[label="Fire Protection"];
+"Equus burchelli"[label="Equus burchelli"];
+"Merops bullockoides"[label="Merops bullockoides"];
+"Ara macao"[label="Ara macao"];
+"Nasua narica"[label="Nasua narica"];
+"Diceros bicornis"[label="Diceros bicornis"];
+"Ursus arctos"[label="Ursus arctos"];
+"Fire Sprinkler System"[label="Fire Sprinkler System"];
+"Ursus americanus"[label="Ursus americanus"];
+"Aquila chrysaetos"[label="Aquila chrysaetos"];
+"Plectopterus gambensis"[label="Plectopterus gambensis"];
+"Varanus sp."[label="Varanus sp."];
+"Rebar & Wire Mesh Install"[label="Rebar & Wire Mesh Install"];
+"Rangifer tarandus"[label="Rangifer tarandus"];
+"Coluber constrictor foxii"[label="Coluber constrictor foxii"];
+"Heloderma horridum"[label="Heloderma horridum"];
+"Drywall & Acoustical (FED)"[label="Drywall & Acoustical (FED)"];
+"Mycteria ibis"[label="Mycteria ibis"];
+"Semnopithecus entellus"[label="Semnopithecus entellus"];
+"Mycteria leucocephala"[label="Mycteria leucocephala"];
+"Eurocephalus anguitimens"[label="Eurocephalus anguitimens"];
+"Macropus rufogriseus"[label="Macropus rufogriseus"];
+"Gymnorhina tibicen"[label="Gymnorhina tibicen"];
+"Tragelaphus strepsiceros"[label="Tragelaphus strepsiceros"];
+"Prefabricated Aluminum Metal Canopies"[label="Prefabricated Aluminum Metal Canopies"];
+"Oryx gazella"[label="Oryx gazella"];
+"Castor canadensis"[label="Castor canadensis"];
+"Ceryle rudis"[label="Ceryle rudis"];
+"Lasiodora parahybana"[label="Lasiodora parahybana"];
+"EIFS"[label="EIFS"];
+"Arctogalidia trivirgata"[label="Arctogalidia trivirgata"];
+"Pelecanus conspicillatus"[label="Pelecanus conspicillatus"];
+"Agouti paca"[label="Agouti paca"];
+"Amphibolurus barbatus"[label="Amphibolurus barbatus"];
+"Paradoxurus hermaphroditus"[label="Paradoxurus hermaphroditus"];
+"Termite Control"[label="Termite Control"];
+"Spheniscus magellanicus"[label="Spheniscus magellanicus"];
+"Dasypus septemcincus"[label="Dasypus septemcincus"];
+"Phalacrocorax varius"[label="Phalacrocorax varius"];
+"Acrobates pygmaeus"[label="Acrobates pygmaeus"];
+"Paroaria gularis"[label="Paroaria gularis"];
+"Pelecans onocratalus"[label="Pelecans onocratalus"];
+"Spilogale gracilis"[label="Spilogale gracilis"];
+"Hystrix cristata"[label="Hystrix cristata"];
+"Sylvilagus floridanus"[label="Sylvilagus floridanus"];
+"Procyon cancrivorus"[label="Procyon cancrivorus"];
+"Electrical"[label="Electrical"];
+"Tachybaptus ruficollis"[label="Tachybaptus ruficollis"];
+"Tachybaptus ruficollis"[label="Tachybaptus ruficollis"];
+"Masonry & Precast"[label="Masonry & Precast"];
+"Bradypus tridactylus"[label="Bradypus tridactylus"];
+"Acrobates pygmaeus"[label="Acrobates pygmaeus"];
+"Vanellus sp."[label="Vanellus sp."];
+"unavailable"[label="unavailable"];
+"Eunectes sp."[label="Eunectes sp."];
+"Egretta thula"[label="Egretta thula"];
+"Overhead Doors"[label="Overhead Doors"];
+"Laniarius ferrugineus"[label="Laniarius ferrugineus"];
+"Phasianus colchicus"[label="Phasianus colchicus"];
+"Taxidea taxus"[label="Taxidea taxus"];
+"Leptoptilus dubius"[label="Leptoptilus dubius"];
+"Structural & Misc Steel Erection"[label="Structural & Misc Steel Erection"];
+"Potos flavus"[label="Potos flavus"];
+"Anser anser"[label="Anser anser"];
+"Dasyurus viverrinus"[label="Dasyurus viverrinus"];
+"Hard Tile & Stone"[label="Hard Tile & Stone"];
+"Pterocles gutturalis"[label="Pterocles gutturalis"];
+"Anas platyrhynchos"[label="Anas platyrhynchos"];
+"Elevator"[label="Elevator"];
+"Francolinus leucoscepus"[label="Francolinus leucoscepus"];
+"Graspus graspus"[label="Graspus graspus"];
+"Sciurus vulgaris"[label="Sciurus vulgaris"];
+"Physignathus cocincinus"[label="Physignathus cocincinus"];
+"Dusicyon thous"[label="Dusicyon thous"];
+"Masonry"[label="Masonry"];
+"Fregata magnificans"[label="Fregata magnificans"];
+"Ardea cinerea"[label="Ardea cinerea"];
+"Cereopsis novaehollandiae"[label="Cereopsis novaehollandiae"];
+"Casework"[label="Casework"];
+"Aonyx cinerea"[label="Aonyx cinerea"];
+"Amphibolurus barbatus"[label="Amphibolurus barbatus"];
+"Ardea cinerea"[label="Ardea cinerea"];
+"Laniarius ferrugineus"[label="Laniarius ferrugineus"];
+"Dusicyon thous"[label="Dusicyon thous"];
+"Retaining Wall and Brick Pavers"[label="Retaining Wall and Brick Pavers"];
+"Myrmecophaga tridactyla"[label="Myrmecophaga tridactyla"];
+"Wall Protection"[label="Wall Protection"];
+"Ninox superciliaris"[label="Ninox superciliaris"];
+"Gymnorhina tibicen"[label="Gymnorhina tibicen"];
+"Landscaping & Irrigation"[label="Landscaping & Irrigation"];
+"Chelodina longicollis"[label="Chelodina longicollis"];
+"Soft Flooring and Base"[label="Soft Flooring and Base"];
+"Sagittarius serpentarius"[label="Sagittarius serpentarius"];
+"Marmota flaviventris"[label="Marmota flaviventris"];
+"Ninox superciliaris"[label="Ninox superciliaris"];
+"Framing (Steel)"[label="Framing (Steel)"];
+"Phalacrocorax albiventer"[label="Phalacrocorax albiventer"];
+"Haliaeetus leucoryphus"[label="Haliaeetus leucoryphus"];
+"Structural and Misc Steel (Fabrication)"[label="Structural and Misc Steel (Fabrication)"];
+"Geococcyx californianus"[label="Geococcyx californianus"];
+"Bubo virginianus"[label="Bubo virginianus"];
+"Roofing (Asphalt)"[label="Roofing (Asphalt)"];
+"Cracticus nigroagularis"[label="Cracticus nigroagularis"];
+"unavailable"[label="unavailable"];
+"Exterior Signage"[label="Exterior Signage"];
+"Trichoglossus haematodus moluccanus"[label="Trichoglossus haematodus moluccanus"];
+"Eolophus roseicapillus"[label="Eolophus roseicapillus"];
+"Cacatua galerita"[label="Cacatua galerita"];
+"Epoxy Flooring"[label="Epoxy Flooring"];
+"Varanus salvator"[label="Varanus salvator"];
+"Drilled Shafts"[label="Drilled Shafts"];
+"Melursus ursinus"[label="Melursus ursinus"];
+"Chionis alba"[label="Chionis alba"];
+"Asphalt Paving"[label="Asphalt Paving"];
+"Plegadis falcinellus"[label="Plegadis falcinellus"];
+"Acrantophis madagascariensis"[label="Acrantophis madagascariensis"];
+"Alligator mississippiensis"[label="Alligator mississippiensis"];
+"Vanellus sp."[label="Vanellus sp."];
+"Cebus apella"[label="Cebus apella"];
+"Drywall & Acoustical (MOB)"[label="Drywall & Acoustical (MOB)"];
+"Vulpes cinereoargenteus"[label="Vulpes cinereoargenteus"];
+"Bucephala clangula"[label="Bucephala clangula"];
 {rank=same;
-Ncomun->Nepico->Nlegendario}
+"Granite Surfaces"->"Roofing (Metal)"->"Waterproofing & Caulking"->"HVAC"->"Site Furnishings"->"Doors, Frames & Hardware"->"Construction Clean and Final Clean"->"Painting & Vinyl Wall Covering"->"Temp Fencing, Decorative Fencing and Gates"->"Curb & Gutter"->"Framing (Wood)"->"Plumbing & Medical Gas"->"Electrical and Fire Alarm"->"Glass & Glazing"->"Ornamental Railings"->"RF Shielding"->"Sitework & Site Utilities"->"Fire Protection"->"Fire Sprinkler System"->"Rebar & Wire Mesh Install"->"Drywall & Acoustical (FED)"->"Prefabricated Aluminum Metal Canopies"->"EIFS"->"Termite Control"->"Electrical"->"Masonry & Precast"->"Overhead Doors"->"Structural & Misc Steel Erection"->"Hard Tile & Stone"->"Elevator"->"Masonry"->"Casework"->"Retaining Wall and Brick Pavers"->"Wall Protection"->"Landscaping & Irrigation"->"Soft Flooring and Base"->"Framing (Steel)"->"Structural and Misc Steel (Fabrication)"->"Roofing (Asphalt)"->"Exterior Signage"->"Epoxy Flooring"->"Drilled Shafts"->"Asphalt Paving"->"Drywall & Acoustical (MOB)"}
 {rank=none;
-Ncomun->Nbarco->Nsombrero->Nskin->Npintura->Nvela->Nrata}
+"Granite Surfaces"->"Colobus guerza"->"Pseudalopex gymnocercus"->"Grus rubicundus"->"Hippotragus equinus"}
 {rank=none;
-Nepico->Npapa->Nescopeta->Npata}
+"Roofing (Metal)"->"Crax sp."->"Bubalus arnee"->"Oryx gazella callotis"->"Myrmecophaga tridactyla"->"Alectura lathami"->"Butorides striatus"->"Phoenicopterus ruber"->"Globicephala melas"}
 {rank=none;
-Nlegendario->Nbala->Nfuego->Ntimon}
+"Waterproofing & Caulking"->"Lepus townsendii"->"Lycosa godeffroyi"->"Bison bison"->"Meleagris gallopavo"->"Phasianus colchicus"->"Larus dominicanus"->"Ramphastos tucanus"}
+{rank=none;
+"HVAC"->"Lemur catta"->"Lepus townsendii"->"Gazella thompsonii"->"unavailable"->"Chlidonias leucopterus"->"Passer domesticus"->"Phascogale calura"->"Heloderma horridum"}
+{rank=none;
+"Site Furnishings"->"Manouria emys"->"Macropus rufus"->"Hippotragus niger"->"Antechinus flavipes"->"Hystrix cristata"->"Fregata magnificans"->"Varanus salvator"->"Buteo regalis"}
+{rank=none;
+"Doors, Frames & Hardware"->"Hystrix cristata"->"Vanellus chilensis"->"Mephitis mephitis"->"Papio cynocephalus"->"Leptoptilos crumeniferus"->"Diomedea irrorata"->"Hymenolaimus malacorhynchus"}
+{rank=none;
+"Construction Clean and Final Clean"->"Hystrix indica"->"Spilogale gracilis"->"Bison bison"->"Zosterops pallidus"->"Hyaena hyaena"->"Choriotis kori"->"Choloepus hoffmani"->"Limosa haemastica"}
+{rank=none;
+"Painting & Vinyl Wall Covering"->"Dendrocitta vagabunda"->"Acrobates pygmaeus"->"Eira barbata"}
+{rank=none;
+"Temp Fencing, Decorative Fencing and Gates"->"Damaliscus lunatus"->"Aonyx cinerea"->"Ephippiorhynchus mycteria"->"Phoeniconaias minor"->"Kobus defassa"->"Coendou prehensilis"->"Grus antigone"}
+{rank=none;
+"Curb & Gutter"->"Castor canadensis"}
+{rank=none;
+"Framing (Wood)"->"Anitibyx armatus"->"Hystrix cristata"->"Lama glama"->"Thalasseus maximus"->"Chelodina longicollis"->"Vulpes chama"->"Scolopax minor"->"Callorhinus ursinus"->"Globicephala melas"}
+{rank=none;
+"Plumbing & Medical Gas"->"Nucifraga columbiana"->"Phalacrocorax niger"->"Cervus elaphus"->"Erethizon dorsatum"}
+{rank=none;
+"Electrical and Fire Alarm"->"Dasypus septemcincus"->"Macropus agilis"->"Sylvicapra grimma"->"Dasyurus viverrinus"->"Madoqua kirkii"->"Spheniscus mendiculus"}
+{rank=none;
+"Glass & Glazing"->"Ploceus rubiginosus"->"Ictalurus furcatus"->"Orcinus orca"->"Phoenicopterus ruber"->"Macaca fuscata"->"Haematopus ater"}
+{rank=none;
+"Ornamental Railings"->"Damaliscus dorcas"->"Bettongia penicillata"->"Grus canadensis"->"Canis lupus lycaon"->"Tauraco porphyrelophus"->"Vulpes vulpes"->"Aonyx capensis"->"Macropus rufogriseus"->"Ciconia ciconia"}
+{rank=none;
+"RF Shielding"->"Ara chloroptera"->"Amblyrhynchus cristatus"}
+{rank=none;
+"Sitework & Site Utilities"->"Dusicyon thous"->"Mungos mungo"->"Fregata magnificans"->"unavailable"->"Amblyrhynchus cristatus"->"Tayassu tajacu"->"Snycerus caffer"->"Papio ursinus"}
+{rank=none;
+"Fire Protection"->"Equus burchelli"->"Merops bullockoides"->"Ara macao"->"Nasua narica"->"Diceros bicornis"->"Ursus arctos"}
+{rank=none;
+"Fire Sprinkler System"->"Ursus americanus"->"Aquila chrysaetos"->"Plectopterus gambensis"->"Varanus sp."}
+{rank=none;
+"Rebar & Wire Mesh Install"->"Rangifer tarandus"->"Coluber constrictor foxii"->"Heloderma horridum"}
+{rank=none;
+"Drywall & Acoustical (FED)"->"Mycteria ibis"->"Semnopithecus entellus"->"Mycteria leucocephala"->"Eurocephalus anguitimens"->"Macropus rufogriseus"->"Gymnorhina tibicen"->"Tragelaphus strepsiceros"}
+{rank=none;
+"Prefabricated Aluminum Metal Canopies"->"Oryx gazella"->"Castor canadensis"->"Ceryle rudis"->"Lasiodora parahybana"}
+{rank=none;
+"EIFS"->"Arctogalidia trivirgata"->"Pelecanus conspicillatus"->"Agouti paca"->"Amphibolurus barbatus"->"Paradoxurus hermaphroditus"}
+{rank=none;
+"Termite Control"->"Spheniscus magellanicus"->"Dasypus septemcincus"->"Phalacrocorax varius"->"Acrobates pygmaeus"->"Paroaria gularis"->"Pelecans onocratalus"->"Spilogale gracilis"->"Hystrix cristata"->"Sylvilagus floridanus"->"Procyon cancrivorus"}
+{rank=none;
+"Electrical"->"Tachybaptus ruficollis"->"Tachybaptus ruficollis"}
+{rank=none;
+"Masonry & Precast"->"Bradypus tridactylus"->"Acrobates pygmaeus"->"Vanellus sp."->"unavailable"->"Eunectes sp."->"Egretta thula"}
+{rank=none;
+"Overhead Doors"->"Laniarius ferrugineus"->"Phasianus colchicus"->"Taxidea taxus"->"Leptoptilus dubius"}
+{rank=none;
+"Structural & Misc Steel Erection"->"Potos flavus"->"Anser anser"->"Dasyurus viverrinus"}
+{rank=none;
+"Hard Tile & Stone"->"Pterocles gutturalis"->"Anas platyrhynchos"}
+{rank=none;
+"Elevator"->"Francolinus leucoscepus"->"Graspus graspus"->"Sciurus vulgaris"->"Physignathus cocincinus"->"Dusicyon thous"}
+{rank=none;
+"Masonry"->"Fregata magnificans"->"Ardea cinerea"->"Cereopsis novaehollandiae"}
+{rank=none;
+"Casework"->"Aonyx cinerea"->"Amphibolurus barbatus"->"Ardea cinerea"->"Laniarius ferrugineus"->"Dusicyon thous"}
+{rank=none;
+"Retaining Wall and Brick Pavers"->"Myrmecophaga tridactyla"}
+{rank=none;
+"Wall Protection"->"Ninox superciliaris"->"Gymnorhina tibicen"}
+{rank=none;
+"Landscaping & Irrigation"->"Chelodina longicollis"}
+{rank=none;
+"Soft Flooring and Base"->"Sagittarius serpentarius"->"Marmota flaviventris"->"Ninox superciliaris"}
+{rank=none;
+"Framing (Steel)"->"Phalacrocorax albiventer"->"Haliaeetus leucoryphus"}
+{rank=none;
+"Structural and Misc Steel (Fabrication)"->"Geococcyx californianus"->"Bubo virginianus"}
+{rank=none;
+"Roofing (Asphalt)"->"Cracticus nigroagularis"->"unavailable"}
+{rank=none;
+"Exterior Signage"->"Trichoglossus haematodus moluccanus"->"Eolophus roseicapillus"->"Cacatua galerita"}
+{rank=none;
+"Epoxy Flooring"->"Varanus salvator"}
+{rank=none;
+"Drilled Shafts"->"Melursus ursinus"->"Chionis alba"}
+{rank=none;
+"Asphalt Paving"->"Plegadis falcinellus"->"Acrantophis madagascariensis"->"Alligator mississippiensis"->"Vanellus sp."->"Cebus apella"}
+{rank=none;
+"Drywall & Acoustical (MOB)"->"Vulpes cinereoargenteus"->"Bucephala clangula"}
 }
