@@ -28,6 +28,8 @@ public:
     void editInfo(string);
     bool deleteUser(string,string);
 
+    bool searchExist(string);
+
     void bubbleSortUP(listaCircularUser listaUsers);
     void bubbleSortDW(listaCircularUser listaUsers);
 

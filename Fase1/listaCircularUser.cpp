@@ -27,20 +27,29 @@ void listaCircularUser::loadFile(string ruta) {
     Json::Value obj;
     reader.parse(ifs, obj);
     const Json::Value& dataUser = obj["usuarios"];
+    string aux = "";
 
     for (int i = 0; i < dataUser.size(); i++) {
 
-        nuevo = new nodoUser();
+        aux = dataUser[i]["nick"].asString();
 
-        string coins = dataUser[i]["monedas"].asString();
-        string age = dataUser[i]["edad"].asString();
-  
-        nuevo->setNick(dataUser[i]["nick"].asString());
-        nuevo->setPassword(dataUser[i]["password"].asString());
-        nuevo->setCoins(stoi(coins));
-        nuevo->setAge(stoi(age));
+        if (searchExist(aux) != true) {
 
-        addToEnd(nuevo);
+            nuevo = new nodoUser();
+
+            string coins = dataUser[i]["monedas"].asString();
+            string age = dataUser[i]["edad"].asString();
+            nuevo->setNick(dataUser[i]["nick"].asString());
+            nuevo->setPassword(dataUser[i]["password"].asString());
+            nuevo->setCoins(stoi(coins));
+            nuevo->setAge(stoi(age));
+
+            addToEnd(nuevo);
+        }
+        else {
+            cout << "Usuario Repetido y omitido" << endl;
+        }
+
     }
 }
 
@@ -263,7 +272,6 @@ void listaCircularUser::showList() {
     }
 }
 
-
 void listaCircularUser::doGraphics() {
     string dot = "";
 
@@ -312,8 +320,6 @@ void listaCircularUser::doGraphics() {
     system(("listaCiruclar.png"));
 
 }
-
-
 
 void listaCircularUser::bubbleSortUP(listaCircularUser listaUser) {
     if (listaUser.primero != NULL) {
@@ -391,4 +397,20 @@ void listaCircularUser::bubbleSortDW(listaCircularUser listaUser) {
             pivote = pivote->siguiente;
         }
     }
+}
+
+bool listaCircularUser::searchExist(string _nick) {
+    nodoUser* actual = new nodoUser();
+    actual = primero;
+    string aux = _nick;
+
+    if (primero != NULL) {
+        do {
+            if (actual->getNick() == aux) {
+                return true;
+            }
+            actual = actual->siguiente;
+        } while (actual != primero);
+    }
+    return false;
 }

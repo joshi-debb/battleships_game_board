@@ -59,15 +59,22 @@ void menu::main_menu(listaCircularUser listaUsers, listaSimpleHeaders structList
                 cout << "\n-> Bienvenido al registro de Usuarios! <- \n\n";
                 cout << " > Ingrese su nombre de usuario: ";
                 cin >> n;
-                nuevo->setNick(n);
-                cout << " > Ingrese su Edad: ";
-                cin >> a;
-                nuevo->setAge(a);
-                cout << " > Ingrese su Password: ";
-                cin >> p;
-                nuevo->setPassword(p);
+                if (listaUsers.searchExist(n) != true) {
+                    nuevo->setNick(n);
+                    cout << " > Ingrese su Edad: ";
+                    cin >> a;
+                    nuevo->setAge(a);
+                    cout << " > Ingrese su Password: ";
+                    cin >> p;
+                    nuevo->setPassword(p);
 
-                listaUsers.addToEnd(nuevo);
+                    listaUsers.addToEnd(nuevo);
+                }
+                else {
+                    cout << "Nombre de usuario existente!" << endl;
+                    cout << "Intente con uno nuevo!" << endl;
+                }
+                
                 system("pause");
                 break;
 

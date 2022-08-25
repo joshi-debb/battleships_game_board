@@ -1,6 +1,0 @@
-digraph G {
-label="Estructura: Lista De Pilas";
-node [shape=box];
-{rank=same;
-}
-}
