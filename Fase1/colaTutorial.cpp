@@ -8,6 +8,8 @@
 #include <memory>
 #include <string>
 
+#include "crow.h"
+
 
 using namespace std;
 using std::stoi;
@@ -73,37 +75,29 @@ void colaTutorial::addToEnd(nodoTutorial* tuto) {
     cout << "\n>Nodo Ingresado!\n\n";
 }
 
-void colaTutorial::showQueue() {
+vector<crow::json::wvalue> colaTutorial::showQueue() {
+
+    std::vector<crow::json::wvalue> datos;
     nodoTutorial* actual = new nodoTutorial();
+    
+    
+
     actual = primero->siguiente;
-
-    cout << " >Tutorial: " << endl;
-    cout << "\n >Tablero: " << endl;
-
-    cout << " " << "Ancho: " << primero->getAncho() << endl;
-    cout << " " << "Alto: " << primero->getAlto() << endl;
-
-    cout << "\n >Movimientos: " << endl;
-
     if (primero->siguiente!= NULL) {
-        string moves = "";
-        do {            
-            moves += "(";
-            moves += to_string(actual->getX());
-            moves += ",";
-            moves += to_string(actual->getY());
-            moves += ")";
-            if (actual != ultimo) {
-                moves += " -> " ;
-            }
+        do {
+            crow::json::wvalue x;
+            x["alto"] = primero->getAlto();
+            x["ancho"] = primero->getAncho();
+            x["x"] = actual->getX();
+            x["y"] = actual->getY();
+            datos.push_back(x);
             actual = actual->siguiente;
         } while (actual != ultimo->siguiente);
-
-        cout << " " << moves << endl;
     }
     else {
         cout << "\n>La cola se Encuentra Vacia\n\n";
     }
+    return datos;
 }
 
 void colaTutorial::doGraphics() {
@@ -145,4 +139,15 @@ void colaTutorial::doGraphics() {
 
     system(("cola.png"));
 
+}
+
+
+bool colaTutorial::is_empty() {
+    nodoTutorial* actual = new nodoTutorial();
+    actual = primero;
+
+    if (primero == NULL) {
+        return true;
+    }
+    return false;
 }

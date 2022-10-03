@@ -23,68 +23,16 @@ using namespace std;
 using std::stoi;
 
 
-void listaSimplePlays::doGamePlays(nodoUser* user) {
+void listaSimplePlays::doGamePlays(nodoUser* user, int posX, int posY) {
 
     nodoUser* nuevoUser = new nodoUser();
     nuevoUser = user;
 
-    nodoPlays* nuevo;
+    nodoPlays* nuevo = new nodoPlays();
+    nuevo->setX(posX);
+    nuevo->setY(posY);
 
-    int coins = 0;
-
-    char opcion;
-    bool repetir = true;
-
-    do {
-        system("cls");
-
-        cout << "Total Tokens: " << nuevoUser->getCoins() << endl;
-
-        cout << "\n\n>Realizar Movimientos" << endl;
-        cout << "1. Ingresar Jugada" << endl;
-        cout << "2. Guardar y Salir" << endl;
-
-        cout << "\nIngrese una opcion: " << endl;
-        cin >> opcion;
-
-        coins = nuevoUser->getCoins();
-        int posX = 0;
-        int posY = 0;
-
-        switch (opcion) {
-
-        case '1':
-
-            nuevo = new nodoPlays();
-            cout << "Coordenada X: ";
-            cin >> posX;
-            cout << "Coordenada Y: ";
-            cin >> posY;
-            nuevo->setX(posX);
-            nuevo->setY(posY);
-
-            cout << ">Ingreso la coordenada: (" << posX << "," << posY << ")" << endl;
-
-            Insertar(nuevo,nuevoUser->getNick());
-
-            coins += 1;
-            nuevoUser->setCoins(coins);
-
-            cout << " > Tokens: +1" << endl;
-
-            system("pause");
-            break;
-
-        case '2':
-            repetir = false;
-            break;
-
-        default:
-            cout << "Elija una opcion valida" << endl;
-            system("pause");
-            break;
-        }
-    } while (repetir);
+    Insertar(nuevo,nuevoUser->getNick());
 
 }
 
@@ -214,4 +162,16 @@ void listaSimplePlays::doGraphics() {
 
   
 
+}
+
+
+
+bool listaSimplePlays::is_empty() {
+
+    nodoHeaderPlays* aux = primero;
+
+    if (aux == NULL) {
+        return true;
+    }
+    return false;
 }

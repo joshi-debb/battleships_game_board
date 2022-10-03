@@ -4,6 +4,8 @@
 
 #include "nodoItem.h"
 #include <iostream>
+#include "crow.h"
+
 
 using namespace std;
 
@@ -24,9 +26,12 @@ public:
     void loadFile(string ruta);
     void addToEnd(nodoItem* item);
     void showList();
-    void bubbleSortUP(listaSimpleItem listaItems);
-    void bubbleSortDW(listaSimpleItem listaItems);
 
-private:
+    vector<crow::json::wvalue> bubbleSortUP();
+    vector<crow::json::wvalue> bubbleSortDW();
+
+    bool searchExist(string name);
+    bool is_empty();
+
 };
 

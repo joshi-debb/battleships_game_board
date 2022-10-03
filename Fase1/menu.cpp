@@ -159,8 +159,8 @@ void menu::sec_menu(listaCircularUser listaUsers,nodoUser* user,listaSimpleItem 
 
         case 'e':
 
-            newStack->doGamePlays(nuevoUser);
-            
+            /*newStack->doGamePlays(nuevoUser);*/
+            listaItems.showList();
             system("pause");
             break;
 
@@ -236,11 +236,10 @@ void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList
         case 'e':
 
             cout << "\n\nDespliegue Ascendente: " << endl;
-            listaUsers.bubbleSortUP(listaUsers);
             listaUsers.showList();
 
             cout << "\n\nDespliegue Descendente: " << endl;
-            listaUsers.bubbleSortDW(listaUsers);
+
             listaUsers.showList();
             system("pause");
             break;
@@ -248,11 +247,11 @@ void menu::third_menu(listaCircularUser listaUsers,listaSimpleHeaders structList
         case 'f':
             
             cout << "\n\nDespliegue Ascendente: " << endl;
-            listItem.bubbleSortUP(listItem);
+
             listItem.showList();
 
             cout << "\n\nDespliegue Descendente: " << endl;
-            listItem.bubbleSortDW(listItem);
+
             listItem.showList();
 
             system("pause");

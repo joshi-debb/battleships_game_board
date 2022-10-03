@@ -16,7 +16,7 @@ using std::stoi;
 #include "listaSimplePlays.h"
 #include "menu.h"
 #include "nodoUser.h"
-
+#include "crow.h"
 
 
 void listaCircularUser::loadFile(string ruta) {
@@ -74,7 +74,7 @@ void listaCircularUser::addToEnd(nodoUser* user) {
     cout << "\n>Usuario Registrado!\n\n";
 }
 
-void listaCircularUser::login(listaCircularUser listaUsers,listaSimpleItem listItems,colaTutorial queue,listaSimplePlays* stack) {
+void listaCircularUser::login(listaCircularUser listaUsers, listaSimpleItem listItems, colaTutorial queue, listaSimplePlays* stack) {
     nodoUser* actual = new nodoUser();
     actual = primero;
     bool encontrado = false;
@@ -96,7 +96,7 @@ void listaCircularUser::login(listaCircularUser listaUsers,listaSimpleItem listI
 
                 if (pass == actual->getPassword() && aux == actual->getNick()) {
                     menu secMenu;
-                    secMenu.sec_menu(listaUsers,actual,listItems,queue,stack);
+                    secMenu.sec_menu(listaUsers, actual, listItems, queue, stack);
 
                 }
                 else {
@@ -122,105 +122,26 @@ void listaCircularUser::editInfo(string _nick) {
     if (primero != NULL) {
         do {
             if (actual->getNick() == _nick) {
-
-                char opcion;
-                bool repetir = true;
-
-                do {
-                    system("cls");
-
-                    cout << "\n\n1. Modificar Nick" << endl;
-                    cout << "2. Modificar Password" << endl;
-                    cout << "3. Modificar Edad" << endl;
-                    cout << "4. Guardar y Salir" << endl;
-
-                    cout << "\nIngrese una opcion: " << endl;
-                    cin >> opcion;
-
-                    switch (opcion) {
-                    case '1':
-                        cout << "Ingresa el nuevo Nick: ";
-                        cin >> aux;
-                        actual->setNick(aux);
-                        system("pause");
-                        break;
-
-                    case '2':
-                        cout << "Ingresa el nuevo Password: ";
-                        cin >> aux;
-                        actual->setPassword(aux);
-                        system("pause");
-                        break;
-
-                    case '3':
-                        cout << "Ingresa tu nueva Edad: ";
-                        cin >> aux;
-                        actual->setAge(aux2);
-                        system("pause");
-                        break;
-
-                    case '4':
-                        repetir = false;
-                        break;
-
-                    default:
-                        cout << ">Elija una opcion valida" << endl;
-                        system("pause");
-                        break;
-                    }
-                } while (repetir);
+                actual->setNick(aux);
+                actual->setPassword(aux);
+                actual->setAge(aux2);
             }
             actual = actual->siguiente;
         } while (actual != primero && encontrado != true);
     }
 }
 
-bool listaCircularUser::deleteUser(string nick,string pass) {
+bool listaCircularUser::deleteUser(string nick, string pass) {
     nodoUser* actual = new nodoUser();
     actual = primero;
     nodoUser* anterior = new nodoUser();
     anterior = NULL;
-    bool confirm = false;
+  
     bool encontrado = false;
 
-    char opcion;
-    bool repetir = true;
-    string aux;
-    string aux2;
-
-    do {
-        system("cls");
-
-        cout << "\n\n -> Se eliminaran todo sus datos! <- \n\n" << endl;
-        cout << "1. Confirmar Eliminacion" << endl;
-        cout << "2. Cancelar y Salir" << endl;
-
-        cout << "\nIngrese una opcion: " << endl;
-        cin >> opcion;
-
-        switch (opcion) {
-        case '1':
-            aux = nick;
-            aux2 = pass;
-            confirm = true;
-            repetir = false;
-            break;
-
-        case '2':
-            repetir = false;
-            break;
-
-        default:
-            cout << ">Elija una opcion valida" << endl;
-            system("pause");
-            break;
-        }
-    } while (repetir);
-
-    // si si ha confirmado se procede a eliminar
-    if (confirm == true && primero != NULL) {
+    if (primero != NULL) {
         do {
-            if (actual->getNick() == aux && actual->getPassword() == aux2) {
+            if (actual->getNick() == nick && actual->getPassword() == pass) {
 
                 if (actual == primero) {
                     primero = primero->siguiente;
@@ -237,7 +158,7 @@ bool listaCircularUser::deleteUser(string nick,string pass) {
                     actual->siguiente->atras = anterior;
                 }
                 cout << "\n>Usuario Eliminado!\n\n";
-                
+
             }
             anterior = actual;
             actual = actual->siguiente;
@@ -276,34 +197,34 @@ void listaCircularUser::doGraphics() {
     string dot = "";
 
     dot += "digraph G {\n";
-    dot += +"label=\"Estructura: Lista Circular\";\n";
-    dot += +"node [shape=box];\n";
+    dot += "label=\"Estructura: Lista Circular\";\n";
+    dot += "node [shape=box];\n";
 
     nodoUser* aux = primero;
-        do {
-            dot += "N" + (aux->getNick()) + "[label=\"" + (aux->getNick()) + "\"];\n";
-            aux = aux->siguiente;
-        } while (aux != primero);
+    do {
+        dot += "N" + (aux->getNick()) + "[label=\"" + (aux->getNick()) + "\"];\n";
+        aux = aux->siguiente;
+    } while (aux != primero);
 
-    
-        dot += "{rank=same;\n";
-        aux = primero;
-        do {
-            dot += "N" + (aux->getNick());
-            dot += "->";
-            aux = aux->siguiente;
-            
-        } while (aux != primero);
 
-        ultimo = primero;
-        do {
-            dot += "N" + (aux->getNick());
-            dot += "->";
-            aux = aux->atras;
-
-        } while (aux != ultimo);
+    dot += "{rank=same;\n";
+    aux = primero;
+    do {
         dot += "N" + (aux->getNick());
-        dot += "}\n";
+        dot += "->";
+        aux = aux->siguiente;
+
+    } while (aux != primero);
+
+    ultimo = primero;
+    do {
+        dot += "N" + (aux->getNick());
+        dot += "->";
+        aux = aux->atras;
+
+    } while (aux != ultimo);
+    dot += "N" + (aux->getNick());
+    dot += "}\n";
 
 
     dot += "}\n";
@@ -321,19 +242,21 @@ void listaCircularUser::doGraphics() {
 
 }
 
-void listaCircularUser::bubbleSortUP(listaCircularUser listaUser) {
-    if (listaUser.primero != NULL) {
+vector<crow::json::wvalue> listaCircularUser::bubbleSortUP() {
+
+        std::vector<crow::json::wvalue> datos;
+
         nodoUser* pivote = NULL, * actual = NULL;
 
         string nick, password;
         int coins = 0;
         int age = 0;
 
-
-        pivote = listaUser.primero;
-        while (pivote != listaUser.ultimo) {
+        if (primero != NULL) {
+        pivote = primero;
+        while (pivote != ultimo) {
             actual = pivote->siguiente;
-            while (actual != listaUser.primero) {
+            while (actual != primero) {
                 if (pivote->getAge() > actual->getAge()) {
 
                     nick = pivote->getNick();
@@ -356,24 +279,46 @@ void listaCircularUser::bubbleSortUP(listaCircularUser listaUser) {
             }
             pivote = pivote->siguiente;
         }
-    }
 
-   
+        nodoUser* actual1 = new nodoUser();
+        actual1 = primero;
+
+
+        do {
+            crow::json::wvalue x;
+            x["nick"] = actual1->getNick();
+            x["password"] = actual1->getPassword();
+            x["edad"] = actual1->getAge();
+            x["monedas"] = actual1->getCoins();
+            datos.push_back(x);
+            actual1 = actual1->siguiente;
+        } while (actual1 != primero);
+
+
+    }
+    else {
+        cout << "\n>La lista se Encuentra Vacia\n\n";
+    }
+    return datos;
+
+
 }
 
-void listaCircularUser::bubbleSortDW(listaCircularUser listaUser) {
+vector<crow::json::wvalue> listaCircularUser::bubbleSortDW() {
 
-    if (listaUser.primero != NULL) {
-        nodoUser* pivote = NULL, * actual = NULL;
+    std::vector<crow::json::wvalue> datos;
 
-        string nick, password;
-        int coins = 0;
-        int age = 0;
+    nodoUser* pivote = NULL, * actual = NULL;
 
-        pivote = listaUser.primero;
-        while (pivote != listaUser.ultimo) {
+    string nick, password;
+    int coins = 0;
+    int age = 0;
+
+    if (primero != NULL) {
+        pivote = primero;
+        while (pivote != ultimo) {
             actual = pivote->siguiente;
-            while (actual != listaUser.primero) {
+            while (actual != primero) {
                 if (pivote->getAge() < actual->getAge()) {
 
                     nick = pivote->getNick();
@@ -396,8 +341,28 @@ void listaCircularUser::bubbleSortDW(listaCircularUser listaUser) {
             }
             pivote = pivote->siguiente;
         }
+
+        nodoUser* actual1 = new nodoUser();
+        actual1 = primero;
+
+
+        do {
+            crow::json::wvalue x;
+            x["nick"] = actual1->getNick();
+            x["password"] = actual1->getPassword();
+            x["edad"] = actual1->getAge();
+            x["monedas"] = actual1->getCoins();
+            datos.push_back(x);
+            actual1 = actual1->siguiente;
+        } while (actual1 != primero);
+
     }
+    else {
+        cout << "\n>La lista se Encuentra Vacia\n\n";
+    }
+    return datos;
 }
+
 
 bool listaCircularUser::searchExist(string _nick) {
     nodoUser* actual = new nodoUser();
@@ -412,5 +377,35 @@ bool listaCircularUser::searchExist(string _nick) {
             actual = actual->siguiente;
         } while (actual != primero);
     }
+    return false;
+}
+
+
+
+nodoUser* listaCircularUser::searchUsers(string _nick) {
+    nodoUser* actual = new nodoUser();
+    actual = primero;
+    string aux = _nick;
+
+    if (primero != NULL) {
+        do {
+            if (actual->getNick() == aux) {
+                return actual;
+            }
+            actual = actual->siguiente;
+        } while (actual != primero);
+    }
+    return nullptr;
+}
+
+
+
+bool listaCircularUser::is_empty() {
+    nodoUser* actual = new nodoUser();
+    actual = primero;
+
+    if (primero == NULL) {
+        return true;
+    } 
     return false;
 }

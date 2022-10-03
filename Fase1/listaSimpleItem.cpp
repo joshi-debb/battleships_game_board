@@ -13,6 +13,7 @@ using namespace std;
 
 #include "listaSimpleItem.h"
 #include "nodoItem.h"
+#include "crow.h"
 
 void listaSimpleItem::loadFile(string ruta) {
 
@@ -22,19 +23,33 @@ void listaSimpleItem::loadFile(string ruta) {
     Json::Value obj;
     reader.parse(ifs, obj);
     const Json::Value& dataArticle = obj["articulos"];
+
+    string aux = "";
     for (int i = 0; i < dataArticle.size(); i++) {
 
-        nuevo = new nodoItem();
+        aux = dataArticle[i]["nombre"].asString();
 
-        string price = dataArticle[i]["precio"].asString();
+        if (searchExist(aux) != true) {
 
-        nuevo->setId(dataArticle[i]["id"].asString());
-        nuevo->setCategory(dataArticle[i]["categoria"].asString());
-        nuevo->setPrice(stoi(price));
-        nuevo->setName(dataArticle[i]["nombre"].asString());
-        nuevo->setSrc(dataArticle[i]["src"].asString());
+            nuevo = new nodoItem();
 
-        addToEnd(nuevo);
+            string price = dataArticle[i]["precio"].asString();
+
+            nuevo->setId(dataArticle[i]["id"].asString());
+            nuevo->setCategory(dataArticle[i]["categoria"].asString());
+            nuevo->setPrice(stoi(price));
+            nuevo->setName(dataArticle[i]["nombre"].asString());
+            nuevo->setSrc(dataArticle[i]["src"].asString());
+
+            addToEnd(nuevo);
+
+
+        }
+        else {
+            cout << "Elemento Repetido y omitido" << endl;
+        }
+
+       
     }
 }
 
@@ -75,17 +90,18 @@ void listaSimpleItem::showList() {
     }
 }
 
-void listaSimpleItem::bubbleSortUP(listaSimpleItem listaItems) {
+vector<crow::json::wvalue> listaSimpleItem::bubbleSortUP() {
+    
+    std::vector<crow::json::wvalue> datos;
 
-    if (listaItems.primero != NULL) {
-        nodoItem* pivote = NULL, *actual = NULL;
+    if (primero != NULL) {
+        nodoItem* pivote = NULL, * actual = NULL;
 
         string id, category, name, src;
         int price = 0;
 
-
-        pivote = listaItems.primero;
-        while (pivote != listaItems.ultimo) {
+        pivote = primero;
+        while (pivote != ultimo) {
             actual = pivote->siguiente;
             while (actual != NULL) {
                 if (pivote->getPrice() > actual->getPrice()) {
@@ -107,26 +123,48 @@ void listaSimpleItem::bubbleSortUP(listaSimpleItem listaItems) {
                     actual->setName(name);
                     actual->setSrc(src);
                     actual->setPrice(price);
-          
+
                 }
                 actual = actual->siguiente;
             }
             pivote = pivote->siguiente;
         }
+
+        nodoItem* actual1 = new nodoItem();
+        actual1 = primero;
+
+        while (actual1 != NULL) {
+            crow::json::wvalue x;
+            x["id"] = actual1->getId();
+            x["categoria"] = actual1->getCategory();
+            x["precio"] = actual1->getPrice();
+            x["nombre"] = actual1->getName();
+            x["src"] = actual1->getSrc();
+            datos.push_back(x);
+            actual1 = actual1->siguiente;
+        }
     }
+    else {
+        cout << "\n>La lista se Encuentra Vacia\n\n";
+    }
+
+    return datos;
 }
 
-void listaSimpleItem::bubbleSortDW(listaSimpleItem listaItems) {
 
-    if (listaItems.primero != NULL) {
+vector<crow::json::wvalue> listaSimpleItem::bubbleSortDW() {
+
+    std::vector<crow::json::wvalue> datos;
+
+    if (primero != NULL) {
         nodoItem* pivote = NULL, * actual = NULL;
 
         string id, category, name, src;
         int price = 0;
 
 
-        pivote = listaItems.primero;
-        while (pivote != listaItems.ultimo) {
+        pivote = primero;
+        while (pivote != ultimo) {
             actual = pivote->siguiente;
             while (actual != NULL) {
                 if (pivote->getPrice() < actual->getPrice()) {
@@ -154,5 +192,57 @@ void listaSimpleItem::bubbleSortDW(listaSimpleItem listaItems) {
             }
             pivote = pivote->siguiente;
         }
+
+        nodoItem* actual1 = new nodoItem();
+        actual1 = primero;
+
+        while (actual1 != NULL) {
+            crow::json::wvalue x;
+            x["id"] = actual1->getId();
+            x["categoria"] = actual1->getCategory();
+            x["precio"] = actual1->getPrice();
+            x["nombre"] = actual1->getName();
+            x["src"] = actual1->getSrc();
+            datos.push_back(x);
+            actual1 = actual1->siguiente;
+        }
+
     }
+    else {
+        cout << "\n>La lista se Encuentra Vacia\n\n";
+    }
+
+    return datos;
+    
+}
+
+
+bool listaSimpleItem::searchExist(string name) {
+
+    nodoItem* actual = new nodoItem();
+
+    actual = primero;
+
+    if (primero != NULL) {
+        while (actual != NULL) {
+            if (actual->getName() == name) {
+                return true;
+            }
+            actual = actual->siguiente;
+        }
+    }
+
+    return false;
+
+}
+
+
+bool listaSimpleItem::is_empty() {
+    nodoItem* actual = new nodoItem();
+    actual = primero;
+
+    if (primero == NULL) {
+        return true;
+    }
+    return false;
 }

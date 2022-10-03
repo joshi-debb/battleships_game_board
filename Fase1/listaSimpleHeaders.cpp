@@ -27,19 +27,34 @@ void listaSimpleHeaders::loadFile(string ruta) {
     Json::Value obj;
     reader.parse(ifs, obj);
     const Json::Value& dataArticle = obj["articulos"];
+    string aux1 = "";
+    string aux2 = "";
+
     for (int i = 0; i < dataArticle.size(); i++) {
 
-        nuevo = new nodoItem();
+        aux1 = dataArticle[i]["nombre"].asString();
 
-        string price = dataArticle[i]["precio"].asString();
+        if (searchExist(aux1) != true) {
 
-        nuevo->setId(dataArticle[i]["id"].asString());
-        nuevo->setCategory(dataArticle[i]["categoria"].asString());
-        nuevo->setPrice(stoi(price));
-        nuevo->setName(dataArticle[i]["nombre"].asString());
-        nuevo->setSrc(dataArticle[i]["src"].asString());
+            nuevo = new nodoItem();
 
-        Insertar(nuevo, dataArticle[i]["categoria"].asString());
+            string price = dataArticle[i]["precio"].asString();
+
+            nuevo->setId(dataArticle[i]["id"].asString());
+            nuevo->setCategory(dataArticle[i]["categoria"].asString());
+            nuevo->setPrice(stoi(price));
+            nuevo->setName(dataArticle[i]["nombre"].asString());
+            nuevo->setSrc(dataArticle[i]["src"].asString());
+
+            Insertar(nuevo, dataArticle[i]["categoria"].asString());
+        
+        }
+
+        else {
+            cout << "Elemento Repetido y omitido" << endl;
+        }
+
+       
     }
 }
 
@@ -88,19 +103,29 @@ nodoHeaderItem* listaSimpleHeaders::BuscarPrincipal(nodoHeaderItem* primeroL, st
     }
 }
 
-void listaSimpleHeaders::showStruct() {
+vector<crow::json::wvalue> listaSimpleHeaders::showStruct() {
+
+    std::vector<crow::json::wvalue> datas;
+
     nodoHeaderItem* aux = primero;
     while (aux != NULL) {
-        cout << "[" << aux->getCat() << "]->";
+        std::vector<crow::json::wvalue> datos;
+        
         nodoItem* aux2 = aux->inList.primero;
         while (aux2 != NULL) {
-            cout << "[" << aux2->getCategory() << aux2->getName() << "]->";
+            crow::json::wvalue x;
+            x["id"] = aux2->getId();
+            x["categoria"] = aux2->getCategory();
+            x["precio"] = aux2->getPrice();
+            x["nombre"] = aux2->getName();
+            x["src"] = aux2->getSrc();
+            datos.push_back(x);
             aux2 = aux2->siguiente;
         }
-        cout << ("NULL");
-        cout << ("\n | \n");
+        datas.push_back(datos);
         aux = aux->siguiente;
     }
+    return datas;
 }
 
 void listaSimpleHeaders::showList() {
@@ -182,3 +207,34 @@ void listaSimpleHeaders::doGraphics() {
     system(("listaDeListas.png"));
 
 }
+
+
+bool listaSimpleHeaders::searchExist(string name) {
+    nodoHeaderItem* aux = primero;
+
+    while (aux != NULL) {
+        nodoItem* aux2 = aux->inList.primero;
+        while (aux2 != NULL) {
+            if (aux2->getName() == name) {
+                return true;
+            }
+            aux2 = aux2->siguiente;
+        }
+        aux = aux->siguiente;
+    }
+
+    return false;
+
+}
+
+
+bool listaSimpleHeaders::is_empty() {
+    nodoHeaderItem* aux = primero;
+
+    if (aux == NULL) {
+        return true;
+    }
+    return false;
+
+}
+

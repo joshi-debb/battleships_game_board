@@ -5,6 +5,8 @@
 #include "nodoTutorial.h"
 #include <iostream>
 
+#include "crow.h"
+
 using namespace std;
 
 class colaTutorial
@@ -22,8 +24,10 @@ public:
 
     void loadFile(string ruta);
     void addToEnd(nodoTutorial* user);
-    void showQueue();
+    vector<crow::json::wvalue>  showQueue();
     void doGraphics();
+
+    bool is_empty();
 
 private:
 };

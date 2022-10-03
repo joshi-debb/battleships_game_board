@@ -36,10 +36,10 @@
     <ClCompile Include="colaTutorial.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="pilaPlays.cpp">
+    <ClCompile Include="listaSimplePlays.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="listaSimplePlays.cpp">
+    <ClCompile Include="pilaPlays.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

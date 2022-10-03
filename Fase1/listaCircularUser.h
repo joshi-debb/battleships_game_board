@@ -6,6 +6,7 @@
 #include "listaSimplePlays.h"
 #include "colaTutorial.h"
 #include <iostream>
+#include "crow.h"
 
 using namespace std;
 
@@ -29,9 +30,12 @@ public:
     bool deleteUser(string,string);
 
     bool searchExist(string);
+    bool is_empty();
 
-    void bubbleSortUP(listaCircularUser listaUsers);
-    void bubbleSortDW(listaCircularUser listaUsers);
+    nodoUser* searchUsers(string);
+
+    vector<crow::json::wvalue> bubbleSortUP();
+    vector<crow::json::wvalue> bubbleSortDW();
 
 private:
 

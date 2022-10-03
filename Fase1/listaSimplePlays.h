@@ -19,9 +19,11 @@ public:
 
     void Insertar(nodoPlays* plays, string categoria);
     nodoHeaderPlays* BuscarPrincipal(nodoHeaderPlays* inicioL, string categoria);
-    void doGamePlays(nodoUser* user);
+    void doGamePlays(nodoUser* user, int posx, int posy);
     void doGraphics();
     void showStruct();
+
+    bool is_empty();
 
 private:
 };
