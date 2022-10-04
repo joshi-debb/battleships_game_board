@@ -1,8 +1,11 @@
 
+
+from signal import signal
 import requests
 
 from tkinter import *
 import tkinter as tk
+from tkinter import ttk
 from tkinter import messagebox as mb
 from tkinter.filedialog import askopenfilename
 
@@ -14,8 +17,6 @@ import webbrowser
 import random
 from os import startfile
 
-
-
 base_url = "http://localhost:5000"
 
 active_user = ""
@@ -24,6 +25,7 @@ user_life = 3
 user_tokens = 0
 game_over = False
 game_over2 = False
+src_objects = ""
 
 #matrix Size
 matrix_size = 10
@@ -52,6 +54,7 @@ rec_pa = 0
 rec_sb = 0
 rec_dt = 0
 rec_bq = 0
+
 
 
 
@@ -219,11 +222,7 @@ class MatrizDispersa():
                             break
                         else:
                             tmp2 = tmp2.abajo
-    
-    def clear_matrix(self):
-        self.capa = 0
-        self.filas = Lista_Encabezado('fila')
-        self.columnas = Lista_Encabezado('columna')
+
 
     def do_Graphics(self,nombre):
         global Org_c,Row_c,Col_c
@@ -357,7 +356,6 @@ class Boxes_List():
         self.boxes_size = 0
 
 
-
     def add_to_end(self,box,posY,posX,color,fuente):
         new_boxes = Box(box,posY,posX,color,fuente)
         self.boxes_size += 1
@@ -370,9 +368,6 @@ class Boxes_List():
             self.boxes_last = new_boxes
         return new_boxes
 
-    def clear_aux_matrix(self):
-        return self.boxes_head == None, self.boxes_last == None, self.boxes_size == 0
-    
     def get_By_Pos(self, pos_x, pos_y):
         tmp = self.boxes_head
         while tmp != None:
@@ -389,413 +384,424 @@ class Boxes_List():
             tmp = tmp.next
 
 
+    def auto_shot(self):
+
+        row = random.randint(1,matrix_size)
+        col = random.randint(1,matrix_size)
+
+        st = self.get_By_Pos(row,col)
+
+        tmp: Box =  self.boxes_head
+
+        while tmp != None:
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == withe:
+                tmp.color = Shot
+                mb.showerror("Disparo Fallido", "Fallido, \nCoordenada: X: " + str(tmp.posX) + " Y: " + str(tmp.posY) + " Vacia!")
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Maroon:
+                tmp.color = Shot
+                mb.showinfo("Disparo Acertado", "Acertado en Portaavion" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Navy:
+                tmp.color = Shot
+                mb.showinfo("Disparo Acertado", "Acertado en Submarino" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Gray:
+                tmp.color = Shot
+                mb.showinfo("Disparo Acertado", "Acertado en Destructor" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Teal:
+                tmp.color = Shot
+                mb.showinfo("Disparo Acertado", "Acertado en Buque" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
+            tmp = tmp.next
 
 
+    def do_shot(self, posx, posy):
+        global user_life, user_tokens, game_over
 
-def cant_barcos(size):
-    global portaviones
-    global submarinos
-    global destructores
-    global buques
+        row = int(posx)
+        col = int(posy)
 
-    aux =  ((size-1)//10)+1
+        st = self.get_By_Pos(row,col)
 
-    portaviones  = int(aux)
-    submarinos = int(aux*2)
-    destructores = int(aux*3)
-    buques = int(aux*4)
+        tmp: Box =  self.boxes_head
 
-
-
-def auto_shot(matrix:Boxes_List):
-
-    row = random.randint(1,matrix_size)
-    col = random.randint(1,matrix_size)
-
-    st = matrix.get_By_Pos(row,col)
-
-    tmp: Box =  matrix.boxes_head
-
-    while tmp != None:
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == withe:
-            tmp.color = Shot
-            mb.showerror("Disparo Fallido", "Fallido, \nCoordenada: X: " + str(tmp.posX) + " Y: " + str(tmp.posY) + " Vacia!")
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Maroon:
-            tmp.color = Shot
-            mb.showinfo("Disparo Acertado", "Acertado en Portaavion" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Navy:
-            tmp.color = Shot
-            mb.showinfo("Disparo Acertado", "Acertado en Submarino" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Gray:
-            tmp.color = Shot
-            mb.showinfo("Disparo Acertado", "Acertado en Destructor" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Teal:
-            tmp.color = Shot
-            mb.showinfo("Disparo Acertado", "Acertado en Buque" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
-        tmp = tmp.next
-
-
-def do_shot(matrix:Boxes_List, posx, posy):
-    global user_life, user_tokens, game_over
-
-    row = int(posx)
-    col = int(posy)
-
-    st = matrix.get_By_Pos(row,col)
-
-    tmp: Box =  matrix.boxes_head
-
-    while tmp != None:
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == withe:
-            tmp.color = Shot
-            mb.showerror("Disparo Fallido", "Fallido !, \nCoordenada: X: " + str(tmp.posX) + " Y: " + str(tmp.posY) + " Vacia!")
-            user_life -= 1
-            if(user_life == 0):
-                game_over = True
+        while tmp != None:
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == withe:
+                tmp.color = Shot
+                mb.showerror("Disparo Fallido", "Fallido !, \nCoordenada: X: " + str(tmp.posX) + " Y: " + str(tmp.posY) + " Vacia!")
+                user_life -= 1
+                if(user_life == 0):
+                    game_over = True
                 
 
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Maroon:
-            tmp.color = Shot
-            mb.showinfo("Disparo Acertado", "Acertado en Portaavion !" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
-            user_tokens += 20
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Maroon:
+                tmp.color = Shot
+                mb.showinfo("Disparo Acertado", "Acertado en Portaavion !" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
+                user_tokens += 20
 
-            up_coins = {
-	                "nick": active_user,
-                    "monedas": str(user_tokens)
-                }
+                up_coins = {
+	                    "nick": active_user,
+                        "monedas": str(user_tokens)
+                    }
 
-            requests.put(f'{base_url}/up_coins', json = up_coins)
+                requests.put(f'{base_url}/up_coins', json = up_coins)
 
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Navy:
-            tmp.color = Shot
-            mb.showinfo("Disparo Acertado", "Acertado en Submarino !" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
-            user_tokens += 20
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Navy:
+                tmp.color = Shot
+                mb.showinfo("Disparo Acertado", "Acertado en Submarino !" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
+                user_tokens += 20
 
-            up_coins = {
-	                "nick": active_user,
-                    "monedas": str(user_tokens)
-                }
+                up_coins = {
+	                    "nick": active_user,
+                        "monedas": str(user_tokens)
+                    }
 
-            requests.put(f'{base_url}/up_coins', json = up_coins)
+                requests.put(f'{base_url}/up_coins', json = up_coins)
 
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Gray:
-            tmp.color = Shot
-            mb.showinfo("Disparo Acertado", "Acertado en Destructor !" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
-            user_tokens += 20
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Gray:
+                tmp.color = Shot
+                mb.showinfo("Disparo Acertado", "Acertado en Destructor !" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
+                user_tokens += 20
 
-            up_coins = {
-	                "nick": active_user,
-                    "monedas": str(user_tokens)
-                }
+                up_coins = {
+	                    "nick": active_user,
+                        "monedas": str(user_tokens)
+                    }
 
-            requests.put(f'{base_url}/up_coins', json = up_coins)
+                requests.put(f'{base_url}/up_coins', json = up_coins)
 
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Teal:
-            tmp.color = Shot
-            mb.showinfo("Disparo Acertado", "Acertado en Buque !" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
-            user_tokens += 20
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == Teal:
+                tmp.color = Shot
+                mb.showinfo("Disparo Acertado", "Acertado en Buque !" + "\nUbicaion destruida: X: " + str(tmp.posX) + " Y: " + str(tmp.posY))
+                user_tokens += 20
 
-            up_coins = {
-	                "nick": active_user,
-                    "monedas": str(user_tokens)
-                }
+                up_coins = {
+	                    "nick": active_user,
+                        "monedas": str(user_tokens)
+                    }
 
-            requests.put(f'{base_url}/up_coins', json = up_coins)
+                requests.put(f'{base_url}/up_coins', json = up_coins)
 
-        tmp = tmp.next
+            tmp = tmp.next
 
 
-def do_shot_tuto(matrix:Boxes_List, posx, posy):
-    global user_life, user_tokens, game_over
+    def do_shot_tuto(self, posx, posy):
+        global user_life, user_tokens, game_over
 
-    row = int(posx)
-    col = int(posy)
+        row = int(posx)
+        col = int(posy)
 
-    st = matrix.get_By_Pos(row,col)
+        st = self.get_By_Pos(row,col)
 
-    tmp: Box =  matrix.boxes_head
+        tmp: Box =  self.boxes_head
 
-    while tmp != None:
-        if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == withe:
-            tmp.color = Shot                
-        tmp = tmp.next
+        while tmp != None:
+            if tmp.posX == st.posX and tmp.posY == st.posY and tmp.color == withe:
+                tmp.color = Shot                
+            tmp = tmp.next
 
-def add_protaviones(matrix: Boxes_List):
+    def add_protaviones(self):
 
-    global matrix_size, rec_pa
+        global matrix_size, rec_pa
 
-    row = random.randint(1,matrix_size)
-    col = random.randint(1,matrix_size)
+        row = random.randint(1,matrix_size)
+        col = random.randint(1,matrix_size)
 
-    pivote = matrix.get_By_Pos(row,col)
+        pivote = self.get_By_Pos(row,col)
 
-    tmp: Box =  matrix.boxes_head
+        tmp: Box =  self.boxes_head
 
  
-    #derecha
-    tmpr1 = matrix.get_By_Pos(row,col+1)
-    tmpr2 = matrix.get_By_Pos(row,col+2)
-    tmpr3 = matrix.get_By_Pos(row,col+3)
+        #derecha
+        tmpr1 = self.get_By_Pos(row,col+1)
+        tmpr2 = self.get_By_Pos(row,col+2)
+        tmpr3 = self.get_By_Pos(row,col+3)
 
-    #iquierda
-    tmpl1 = matrix.get_By_Pos(row,col-1)
-    tmpl2 = matrix.get_By_Pos(row,col-2)
-    tmpl3 = matrix.get_By_Pos(row,col-3)
+        #iquierda
+        tmpl1 = self.get_By_Pos(row,col-1)
+        tmpl2 = self.get_By_Pos(row,col-2)
+        tmpl3 = self.get_By_Pos(row,col-3)
 
-    #arriba
-    tmpu1 = matrix.get_By_Pos(row+1,col)
-    tmpu2 = matrix.get_By_Pos(row+2,col)
-    tmpu3 = matrix.get_By_Pos(row+3,col)
+        #arriba
+        tmpu1 = self.get_By_Pos(row+1,col)
+        tmpu2 = self.get_By_Pos(row+2,col)
+        tmpu3 = self.get_By_Pos(row+3,col)
 
-    #abajo
-    tmpd1 = matrix.get_By_Pos(row-1,col)
-    tmpd2 = matrix.get_By_Pos(row-2,col)
-    tmpd3 = matrix.get_By_Pos(row-3,col)
+        #abajo
+        tmpd1 = self.get_By_Pos(row-1,col)
+        tmpd2 = self.get_By_Pos(row-2,col)
+        tmpd3 = self.get_By_Pos(row-3,col)
 
 
-    while tmp != None:
-        if (tmp.posX == pivote.posX and tmp.posY == pivote.posY and tmp.color == withe):
-            op = random.randint(1,4)
+        while tmp != None:
+            if (tmp.posX == pivote.posX and tmp.posY == pivote.posY and tmp.color == withe):
+                op = random.randint(1,4)
   
-            if(op == 1):
-                if(tmpr1 != None and tmpr2 != None and tmpr3 != None):
-                    if(tmpr1.color == withe and tmpr2.color == withe and tmpr3.color == withe):
-                        tmp.color = Maroon
-                        tmpr1.color = Maroon
-                        tmpr2.color = Maroon
-                        tmpr3.color = Maroon
-                        rec_pa += 1
-                    else:
-                        pass
-            elif(op == 2):
-                if(tmpl1 != None and tmpl2 != None and tmpl3 != None):
-                    if(tmpl1.color == withe and tmpl2.color == withe and tmpl3.color == withe):
-                        tmp.color = Maroon
-                        tmpl1.color = Maroon
-                        tmpl2.color = Maroon
-                        tmpl3.color = Maroon
-                        rec_pa += 1
-                    else:
-                        pass
-            elif(op == 3):
-                if(tmpu1 != None and tmpu2 != None and tmpu3 != None):
-                    if(tmpu1.color == withe and tmpu2.color == withe and tmpu3.color == withe):
-                        tmp.color = Maroon
-                        tmpu1.color = Maroon
-                        tmpu2.color = Maroon
-                        tmpu3.color = Maroon
-                        rec_pa += 1
-                    else:
-                        pass
-            elif(op == 4):
-                if(tmpd1 != None and tmpd2 != None and tmpd3 != None):
-                    if(tmpd1.color == withe and tmpd2.color == withe and tmpd3.color == withe):
-                        tmp.color = Maroon
-                        tmpd1.color = Maroon
-                        tmpd2.color = Maroon
-                        tmpd3.color = Maroon
-                        rec_pa += 1
-                    else:
-                        pass
-            else:
-                add_protaviones(matrix)
+                if(op == 1):
+                    if(tmpr1 != None and tmpr2 != None and tmpr3 != None):
+                        if(tmpr1.color == withe and tmpr2.color == withe and tmpr3.color == withe):
+                            tmp.color = Maroon
+                            tmpr1.color = Maroon
+                            tmpr2.color = Maroon
+                            tmpr3.color = Maroon
+                            rec_pa += 1
+                        else:
+                            pass
+                elif(op == 2):
+                    if(tmpl1 != None and tmpl2 != None and tmpl3 != None):
+                        if(tmpl1.color == withe and tmpl2.color == withe and tmpl3.color == withe):
+                            tmp.color = Maroon
+                            tmpl1.color = Maroon
+                            tmpl2.color = Maroon
+                            tmpl3.color = Maroon
+                            rec_pa += 1
+                        else:
+                            pass
+                elif(op == 3):
+                    if(tmpu1 != None and tmpu2 != None and tmpu3 != None):
+                        if(tmpu1.color == withe and tmpu2.color == withe and tmpu3.color == withe):
+                            tmp.color = Maroon
+                            tmpu1.color = Maroon
+                            tmpu2.color = Maroon
+                            tmpu3.color = Maroon
+                            rec_pa += 1
+                        else:
+                            pass
+                elif(op == 4):
+                    if(tmpd1 != None and tmpd2 != None and tmpd3 != None):
+                        if(tmpd1.color == withe and tmpd2.color == withe and tmpd3.color == withe):
+                            tmp.color = Maroon
+                            tmpd1.color = Maroon
+                            tmpd2.color = Maroon
+                            tmpd3.color = Maroon
+                            rec_pa += 1
+                        else:
+                            pass
+                else:
+                    self.add_protaviones()
             
-        tmp = tmp.next
+            tmp = tmp.next
 
 
 
-def add_submarino(matrix: Boxes_List):
+    def add_submarino(self):
     
-    global matrix_size, rec_sb
+        global matrix_size, rec_sb
 
-    row = random.randint(1,matrix_size)
-    col = random.randint(1,matrix_size)
+        row = random.randint(1,matrix_size)
+        col = random.randint(1,matrix_size)
 
-    pivote = matrix.get_By_Pos(row,col)
+        pivote = self.get_By_Pos(row,col)
 
-    tmp: Box =  matrix.boxes_head
+        tmp: Box =  self.boxes_head
 
-    #derecha
-    tmpr1 = matrix.get_By_Pos(row,col+1)
-    tmpr2 = matrix.get_By_Pos(row,col+2)
+        #derecha
+        tmpr1 = self.get_By_Pos(row,col+1)
+        tmpr2 = self.get_By_Pos(row,col+2)
 
-    #iquierda
-    tmpl1 = matrix.get_By_Pos(row,col-1)
-    tmpl2 = matrix.get_By_Pos(row,col-2)
+        #iquierda
+        tmpl1 = self.get_By_Pos(row,col-1)
+        tmpl2 = self.get_By_Pos(row,col-2)
 
-    #arriba
-    tmpu1 = matrix.get_By_Pos(row+1,col)
-    tmpu2 = matrix.get_By_Pos(row+2,col)
+        #arriba
+        tmpu1 = self.get_By_Pos(row+1,col)
+        tmpu2 = self.get_By_Pos(row+2,col)
 
-    #abajo
-    tmpd1 = matrix.get_By_Pos(row-1,col)
-    tmpd2 = matrix.get_By_Pos(row-2,col)
+        #abajo
+        tmpd1 = self.get_By_Pos(row-1,col)
+        tmpd2 = self.get_By_Pos(row-2,col)
 
-    while tmp != None:
-        if (tmp.posX == pivote.posX and tmp.posY == pivote.posY and tmp.color == withe):
-            op = random.randint(1,4)
+        while tmp != None:
+            if (tmp.posX == pivote.posX and tmp.posY == pivote.posY and tmp.color == withe):
+                op = random.randint(1,4)
 
-            if(op == 1):
-                if(tmpr1 != None and tmpr2 != None):
-                    if(tmpr1.color == withe and tmpr2.color == withe):
-                        tmp.color = Navy
-                        tmpr1.color = Navy
-                        tmpr2.color = Navy
-                        rec_sb += 1
-                    else:
-                        pass
-            elif(op == 2):
-                if(tmpl1 != None and tmpl2 != None):
-                    if(tmpl1.color == withe and tmpl2.color == withe):
-                        tmp.color = Navy
-                        tmpl1.color = Navy
-                        tmpl2.color = Navy
-                        rec_sb += 1
-                    else:
-                        pass
+                if(op == 1):
+                    if(tmpr1 != None and tmpr2 != None):
+                        if(tmpr1.color == withe and tmpr2.color == withe):
+                            tmp.color = Navy
+                            tmpr1.color = Navy
+                            tmpr2.color = Navy
+                            rec_sb += 1
+                        else:
+                            pass
+                elif(op == 2):
+                    if(tmpl1 != None and tmpl2 != None):
+                        if(tmpl1.color == withe and tmpl2.color == withe):
+                            tmp.color = Navy
+                            tmpl1.color = Navy
+                            tmpl2.color = Navy
+                            rec_sb += 1
+                        else:
+                            pass
 
-            elif(op == 3):
-                if(tmpu1 != None and tmpu2 != None):
-                    if(tmpu1.color == withe and tmpu2.color == withe):
-                        tmp.color = Navy
-                        tmpu1.color = Navy
-                        tmpu2.color = Navy
-                        rec_sb += 1
-                    else:
-                        pass
-            elif(op == 4):
-                if(tmpd1 != None and tmpd2 != None):
-                    if(tmpd1.color == withe and tmpd2.color == withe):
-                        tmp.color = Navy
-                        tmpd1.color = Navy
-                        tmpd2.color = Navy
-                        rec_sb += 1
-                    else:
-                        pass
-            else:
-                add_submarino(matrix)
+                elif(op == 3):
+                    if(tmpu1 != None and tmpu2 != None):
+                        if(tmpu1.color == withe and tmpu2.color == withe):
+                            tmp.color = Navy
+                            tmpu1.color = Navy
+                            tmpu2.color = Navy
+                            rec_sb += 1
+                        else:
+                            pass
+                elif(op == 4):
+                    if(tmpd1 != None and tmpd2 != None):
+                        if(tmpd1.color == withe and tmpd2.color == withe):
+                            tmp.color = Navy
+                            tmpd1.color = Navy
+                            tmpd2.color = Navy
+                            rec_sb += 1
+                        else:
+                            pass
+                else:
+                    self.add_submarino()
             
-        tmp = tmp.next
+            tmp = tmp.next
 
    
 
 
 
-def add_destructor(matrix: Boxes_List):
+    def add_destructor(self):
 
-    global matrix_size, rec_dt
+        global matrix_size, rec_dt
 
-    row = random.randint(1,matrix_size)
-    col = random.randint(1,matrix_size)
+        row = random.randint(1,matrix_size)
+        col = random.randint(1,matrix_size)
 
-    pivote = matrix.get_By_Pos(row,col)
+        pivote = self.get_By_Pos(row,col)
 
-    tmp: Box =  matrix.boxes_head
+        tmp: Box =  self.boxes_head
 
-    #derecha
-    tmpr1 = matrix.get_By_Pos(row,col+1)
+        #derecha
+        tmpr1 = self.get_By_Pos(row,col+1)
 
-    #iquierda
-    tmpl1 = matrix.get_By_Pos(row,col-1)
+        #iquierda
+        tmpl1 = self.get_By_Pos(row,col-1)
 
-    #arriba
-    tmpu1 = matrix.get_By_Pos(row+1,col)
+        #arriba
+        tmpu1 = self.get_By_Pos(row+1,col)
 
-    #abajo
-    tmpd1 = matrix.get_By_Pos(row-1,col)
+        #abajo
+        tmpd1 = self.get_By_Pos(row-1,col)
 
-    while tmp != None:
-        if (tmp.posX == pivote.posX and tmp.posY == pivote.posY and tmp.color == withe):
-            op = random.randint(1,4)
+        while tmp != None:
+            if (tmp.posX == pivote.posX and tmp.posY == pivote.posY and tmp.color == withe):
+                op = random.randint(1,4)
 
-            if(op == 1):
-                if(tmpr1 != None):
-                    if(tmpr1.color == withe):
-                        tmp.color = Gray
-                        tmpr1.color = Gray
-                        rec_dt += 1
-                    else:
-                        pass
+                if(op == 1):
+                    if(tmpr1 != None):
+                        if(tmpr1.color == withe):
+                            tmp.color = Gray
+                            tmpr1.color = Gray
+                            rec_dt += 1
+                        else:
+                            pass
 
-            elif(op == 2):
-                if(tmpl1 != None):
-                    if(tmpl1.color == withe):
-                        tmp.color = Gray
-                        tmpl1.color = Gray
-                        rec_dt += 1
-                    else:
-                        pass
+                elif(op == 2):
+                    if(tmpl1 != None):
+                        if(tmpl1.color == withe):
+                            tmp.color = Gray
+                            tmpl1.color = Gray
+                            rec_dt += 1
+                        else:
+                            pass
 
-            elif(op == 3):
-                if(tmpu1 != None):
-                    if(tmpu1.color == withe):
-                        tmp.color = Gray
-                        tmpu1.color = Gray
-                        rec_dt += 1
-                    else:
-                        pass
+                elif(op == 3):
+                    if(tmpu1 != None):
+                        if(tmpu1.color == withe):
+                            tmp.color = Gray
+                            tmpu1.color = Gray
+                            rec_dt += 1
+                        else:
+                            pass
 
-            elif(op == 4):
-                if(tmpd1 != None):
-                    if(tmpd1.color == withe):
-                        tmp.color = Gray
-                        tmpd1.color = Gray
-                        rec_dt += 1
-                    else:
-                        pass
+                elif(op == 4):
+                    if(tmpd1 != None):
+                        if(tmpd1.color == withe):
+                            tmp.color = Gray
+                            tmpd1.color = Gray
+                            rec_dt += 1
+                        else:
+                            pass
 
-            else:
-                add_destructor(matrix)
+                else:
+                    self.add_destructor()
             
-        tmp = tmp.next
+            tmp = tmp.next
 
-def add_buque(matrix: Boxes_List):
+    def add_buque(self):
 
-    global matrix_size, rec_bq
+        global matrix_size, rec_bq
 
-    row = random.randint(1,matrix_size)
-    col = random.randint(1,matrix_size)
+        row = random.randint(1,matrix_size)
+        col = random.randint(1,matrix_size)
 
-    bq = matrix.get_By_Pos(row,col)
+        bq = self.get_By_Pos(row,col)
 
-    tmp: Box =  matrix.boxes_head
+        tmp: Box =  self.boxes_head
 
-    while tmp != None:
-        if tmp.posX == bq.posX and tmp.posY == bq.posY and tmp.color == withe:
-            tmp.color = Teal
-            rec_bq += 1
-        tmp = tmp.next
+        while tmp != None:
+            if tmp.posX == bq.posX and tmp.posY == bq.posY and tmp.color == withe:
+                tmp.color = Teal
+                rec_bq += 1
+            tmp = tmp.next
 
-         
+       
 
-def generate_prototipo():
-    global matrix_size
+    def generate_prototipo(self):
+        global matrix_size
 
-    matrix_aux = Boxes_List()
+        pos_x = 0
+        pos_y = 0
+        contador = 1 
 
-    pos_x = 0
-    pos_y = 0
-    contador = 1 
+        rows = matrix_size
+        columns = matrix_size
 
-    rows = matrix_size
-    columns = matrix_size
+        for i in range(matrix_size):
+            count_rows = 0
+            while int(rows) > count_rows:
+                count_cols = 0
+                color = '{}'.format(str(contador))
+                self.add_to_end(color,pos_x+1,pos_y+1,withe,withe)
+                contador += 1
+                pos_y += 1 
+                while int(columns) > count_cols:
+                    count_cols += 1
+                count_rows += 1
+                if pos_y >= int(columns):
+                    pos_x += 1
+                    pos_y = 0
 
-    for i in range(matrix_size):
-        count_rows = 0
-        while int(rows) > count_rows:
-            count_cols = 0
-            color = '{}'.format(str(contador))
-            matrix_aux.add_to_end(color,pos_x+1,pos_y+1,withe,withe)
-            contador += 1
-            pos_y += 1 
-            while int(columns) > count_cols:
-                count_cols += 1
-            count_rows += 1
-            if pos_y >= int(columns):
-                pos_x += 1
-                pos_y = 0
+matrix_aux = Boxes_List()
 
-    return matrix_aux
+def rejoin_datas():
+    global matrix_size, matrix_aux, user_life
+    global portaviones, submarinos, destructores, buques
+    global rec_pa, rec_sb, rec_dt, rec_bq
+
+    matrix_size = 0
+    matrix_aux.boxes_head = None
+
+    portaviones = 0
+    submarinos = 0
+    destructores = 0 
+    buques = 0
+
+    rec_pa = 0
+    rec_sb = 0
+    rec_dt = 0
+    rec_bq = 0
+
+    user_life = 3
+
+
+def cant_barcos(size):
+        global portaviones, submarinos, destructores, buques
+
+        aux =  ((size-1)//10)+1
+
+        portaviones  = int(aux)
+        submarinos = int(aux*2)
+        destructores = int(aux*3)
+        buques = int(aux*4)
 
 def generate_plays(matrix_aux: Boxes_List):
 
@@ -830,25 +836,24 @@ def generate_plays(matrix_aux: Boxes_List):
     matrix.do_Graphics('Plays')
 
 def auto_generate():
-    global matrix_size
+    global matrix_size, matrix_aux
     global portaviones, submarinos, destructores, buques
     global rec_pa, rec_sb, rec_dt, rec_bq
 
     cant_barcos(matrix_size)
 
     matrix = MatrizDispersa(0)
-    matrix.clear_matrix()
-    matrix_aux = generate_prototipo()
 
+    matrix_aux.generate_prototipo()
 
     while (rec_pa < portaviones):
-        add_protaviones(matrix_aux)
+        matrix_aux.add_protaviones()
     while (rec_sb < submarinos):
-        add_submarino(matrix_aux)
+        matrix_aux.add_submarino()
     while (rec_dt < destructores):
-        add_destructor(matrix_aux)
+        matrix_aux.add_destructor()
     while (rec_bq < buques):
-        add_buque(matrix_aux)
+        matrix_aux.add_buque()
 
     tmp = matrix_aux.boxes_head
 
@@ -957,10 +962,10 @@ class home():
     def __init__(self) -> None:
         #-----------------------------------------home-------------------------------------------------
         self.root = tk.Tk()
-        self.root.title('Batalla Naval')
+        self.root.title('Battleship')
         self.root.geometry('400x250+550+200')
 
-        self.user_logn = Label(self.root,text = "Batalla Naval").place(x = 160, y=80)
+        self.user_logn = Label(self.root,text = "BATTLESHIP").place(x = 170, y=80)
         self.btn_login = Button(self.root, width = 17, text="Login", command= self.login )
         self.btn_login.place(x=60, y=180)
         self.btn_Singin = Button(self.root, width = 17, text="Sign Up" , command=self.sign_up )
@@ -979,13 +984,13 @@ class home():
 
 
         self.user_logn = Label(self.logn, text = "Login").place(x = 180, y=20)
-        self.user_name = Label(self.logn, text = "Nombre de Usuario").place(x = 50, y=80)
-        self.user_pass = Label(self.logn, text = "Contrasenia").place(x = 50, y=135)
+        self.user_name = Label(self.logn, text = "User Name").place(x = 50, y=80)
+        self.user_pass = Label(self.logn, text = "Password").place(x = 50, y=135)
         self.user_text = Entry(self.logn)
         self.user_text.place(x=200, y=80, width=150 , height=25)
         self.pass_text = Entry(self.logn)
         self.pass_text.place(x=200, y=135, width=150 , height=25)
-        self.btn_Send = Button(self.logn, width = 17, text="Iniciar Sesion", command = lambda: self.match_login(self.user_text.get(),self.pass_text.get()))
+        self.btn_Send = Button(self.logn, width = 17, text="Login", command = lambda: self.match_login(self.user_text.get(),self.pass_text.get()))
         self.btn_Send.place(x=140, y=190)
 
         self.logn.resizable(0,0)
@@ -1036,9 +1041,9 @@ class home():
 
 
         self.user_logn = Label(self.signup, text = "Sign Up").place(x = 180, y=20)
-        self.user_name = Label(self.signup, text = "Nombre de Usuario").place(x = 50, y=80)
-        self.user_age = Label(self.signup, text = "Edad").place(x = 50, y=135)
-        self.user_pass = Label(self.signup, text = "Contrasenia").place(x = 50, y=190)
+        self.user_name = Label(self.signup, text = "User Name").place(x = 50, y=80)
+        self.user_age = Label(self.signup, text = "Age").place(x = 50, y=135)
+        self.user_pass = Label(self.signup, text = "Password").place(x = 50, y=190)
 
         self.user_text = Entry(self.signup)
         self.user_text.place(x=200, y=80, width=150 , height=25)
@@ -1056,7 +1061,10 @@ class home():
 
     def user_signup(self,user_name,user_pass,user_age):
 
-        signup = {
+        user_id = random.randint(1,1000);
+
+        signup = {  
+                    "id": str(user_id),
 	                "nick": user_name,
 	                "password": user_pass,
 	                "edad": user_age
@@ -1066,9 +1074,9 @@ class home():
         data = x.text
 
         if(data == "repetido"):
-            mb.showerror("Request Failed", "Sorry, User Actually Exist ! \n Try Another Name")
+            mb.showerror("Request Failed", "Sorry, User Actually Exist !")
         elif(data == "registrado"):
-            mb.showinfo('Welcome', 'Usuario Registrado !')
+            mb.showinfo('Welcome', 'User Registered !')
 
         self.signup.destroy()
         home()
@@ -1125,10 +1133,10 @@ class home():
         self.edit_info.geometry('400x320+550+200')
 
 
-        self.user_logn = Label(self.edit_info, text = "Sign Up").place(x = 180, y=20)
-        self.user_name = Label(self.edit_info, text = "Nombre de Usuario").place(x = 50, y=80)
-        self.user_age = Label(self.edit_info, text = "Edad").place(x = 50, y=135)
-        self.user_pass = Label(self.edit_info, text = "Contrasenia").place(x = 50, y=190)
+        self.user_logn = Label(self.edit_info, text = "Edit Information").place(x = 165, y=25)
+        self.user_name = Label(self.edit_info, text = "User Name").place(x = 50, y=80)
+        self.user_age = Label(self.edit_info, text = "Age").place(x = 50, y=135)
+        self.user_pass = Label(self.edit_info, text = "Password").place(x = 50, y=190)
 
         self.user_text = Entry(self.edit_info)
         self.user_text.place(x=200, y=80, width=150 , height=25)
@@ -1167,13 +1175,13 @@ class home():
     def delete_acc(self):
         self.user_menu.withdraw()
         self.delete = tk.Tk()
-        self.delete.title('Delete Information')
+        self.delete.title('Delete Account')
         self.delete.geometry('400x250+550+200')
 
-        self.user_delet = Label(self.delete, text = "Si eliminas tu cuenta, se perdera todo!! \n Estos datos no podran ser recuperados!!").place(x = 100, y=80)
-        self.btn_delete = Button(self.delete, width = 17, text="Confirmar", command= self.confirm )
+        self.user_delet = Label(self.delete, text = "If you delete your account, you will lose everything!").place(x = 70, y=80)
+        self.btn_delete = Button(self.delete, width = 17, text="Confirm", command= self.confirm )
         self.btn_delete.place(x=60, y=180)
-        self.btn_cancel = Button(self.delete, width = 17, text="Cancelar" , command=self.cancel )
+        self.btn_cancel = Button(self.delete, width = 17, text="Cancel" , command=self.cancel )
         self.btn_cancel.place(x=210, y=180)
 
 
@@ -1201,9 +1209,11 @@ class home():
     #-----------------------------------Tutorial--------------------------------------------
 
     def show_tutorial(self):
-        global matrix_size
+        global matrix_size, matrix_aux
         x = requests.get(f'{base_url}/tuto')
         datas = x.json()
+
+        rejoin_datas()
 
         ancho = datas[1]['ancho']
         alto = datas[1]['alto']
@@ -1211,79 +1221,239 @@ class home():
         if (int(ancho) == int(alto)):
             matrix_size = int(ancho)
         else:
-            mb.showerror("Request Failed", "Sorry, Dimensiones Incorrectas")
+            mb.showerror("Request Failed", "Sorry, Invalid Dimensions")
 
-        matrix_aux = generate_prototipo()
+        matrix_aux.generate_prototipo()
 
         for i in datas:
-            do_shot_tuto(matrix_aux,i['x'],i['y'])
+            matrix_aux.do_shot_tuto(i['x'],i['y'])
 
         generate_plays(matrix_aux)
 
 
     #------------------------------------tienda---------------------------------------------
     def shops(self):
-        global active_user, user_tokens
+        global active_user, user_tokens, src_objects
 
         self.user_menu.withdraw()
         self.shops = tk.Tk()
         self.shops.title('Shops')
-        self.shops.geometry('1000x700+400+20')
+        self.shops.geometry('700x550+400+20')
 
-        self.txt_shop = Label(self.shops, text = "TIENDA").place(x = 460, y=60)
-        self.txt_shop_user = tk.Label(self.shops, text = f"Usuario Activo: {active_user}")
-        self.txt_shop_user.place(x = 800, y=20)
-        self.txt_shop_tokens = tk.Label(self.shops, text = f"Monedas Disponibles: {user_tokens}")
-        self.txt_shop_tokens.place(x = 800, y=45)
+        self.txt_shop = Label(self.shops, text = "SHOP").place(x = 325, y=60)
+        self.txt_shop_user = tk.Label(self.shops, text = f"Active User: {active_user}")
+        self.txt_shop_user.place(x = 500, y=20)
+        self.txt_shop_tokens = tk.Label(self.shops, text = f"Tokens Available: {user_tokens}")
+        self.txt_shop_tokens.place(x = 500, y=45)
 
-        self.btn_logout = Button(self.shops, width = 14, text="Atras", command = self.back)
-        self.btn_logout.place(x=10, y=10)
+        self.style = ttk.Style()
+        self.style.theme_use("default")
+
+        self.style.configure("Treeview", 
+            background="#D3D3D3",
+            foreground="black",
+            rowheight=25,
+            fieldbackground="#D3D3D3"
+            )
+
+        self.style.map('Treeview', background=[('selected', 'blue')])
 
 
+        self.tree_frame = Frame(self.shops)
+        self.tree_frame.pack(pady=120)
+        self.tree_scroll = Scrollbar(self.tree_frame)
+        self.tree_scroll.pack(side=RIGHT, fill=Y)
+        self.my_tree = ttk.Treeview(self.tree_frame, yscrollcommand=self.tree_scroll.set, selectmode="extended")
+        self.my_tree.pack()
 
+        self.tree_scroll.config(command=self.my_tree.yview)
+
+        self.my_tree['columns'] = ("Id", "Name", "Category", "Price")
+
+        self.my_tree.column("#0", width=0, stretch=NO)
+        self.my_tree.column("Id", anchor=CENTER, width=100)
+        self.my_tree.column("Name", anchor=CENTER, width=175)
+        self.my_tree.column("Category", anchor=CENTER, width=175)
+        self.my_tree.column("Price", anchor=CENTER, width=175)
+
+        self.my_tree.heading("#0", text="", anchor=CENTER)
+        self.my_tree.heading("Id", text="Id", anchor=CENTER)
+        self.my_tree.heading("Name", text="Name",  anchor=CENTER)
+        self.my_tree.heading("Category", text="Category", anchor=CENTER)
+        self.my_tree.heading("Price", text="Price", anchor=CENTER)
+
+        self.my_tree.tag_configure('oddrow', background="white")
+        self.my_tree.tag_configure('evenrow', background="lightblue")
+
+        global count
+        count=0
+
+        x = requests.get(f'{base_url}/items')
+        datas = x.json()
+        
+        for categoria in datas:
+            for articulo in categoria:
+                if count % 2 == 0:
+                    self.my_tree.insert(parent='', index='end', iid=count, text="", values=(articulo['id'], articulo['nombre'], articulo['categoria'], articulo['precio']), tags=('evenrow',))
+                else:
+                    self.my_tree.insert(parent='', index='end', iid=count, text="", values=(articulo['id'], articulo['nombre'], articulo['categoria'], articulo['precio']), tags=('oddrow',))
+                count += 1
+
+
+        self.add_frame = Frame(self.shops)
+        self.add_frame.pack(pady=0)
+
+        self.nl = Label(self.add_frame, text="Id")
+        self.nl.grid(row=0, column=0)
+
+        self.il = Label(self.add_frame, text="Name")
+        self.il.grid(row=0, column=1)
+
+        self.tl = Label(self.add_frame, text="Category")
+        self.tl.grid(row=0, column=2)
+
+        self.cl = Label(self.add_frame, text="Price")
+        self.cl.grid(row=0, column=3)
+
+        self.id_box = Entry(self.add_frame)
+        self.id_box.grid(row=1, column=0)
+        self.id_box.config(state= "disabled")
+
+        self.name_box = Entry(self.add_frame)
+        self.name_box.grid(row=1, column=1)
+        self.name_box.config(state= "disabled")
+
+        self.catgry_box = Entry(self.add_frame)
+        self.catgry_box.grid(row=1, column=2)
+        self.catgry_box.config(state= "disabled")
+
+        self.price_box = Entry(self.add_frame)
+        self.price_box.grid(row=1, column=3)
+        self.price_box.config(state= "disabled")
+        
+
+
+        def select_record():
+            try:
+                    
+                self.id_box.config(state= "normal")
+                self.name_box.config(state= "normal")
+                self.catgry_box.config(state= "normal")
+                self.price_box.config(state= "normal")
+
+                self.id_box.delete(0, END)
+                self.name_box.delete(0, END)
+                self.catgry_box.delete(0, END)
+                self.price_box.delete(0, END)
+
+                self.selected = self.my_tree.focus()
+                self.values = self.my_tree.item(self.selected, 'values')
+
+                self.id_box.insert(0, self.values[0])
+                self.name_box.insert(0, self.values[1])
+                self.catgry_box.insert(0, self.values[2])
+                self.price_box.insert(0, self.values[3])
+
+                self.id_box.config(state= "disabled")
+                self.name_box.config(state= "disabled")
+                self.catgry_box.config(state= "disabled")
+                self.price_box.config(state= "disabled")
+
+            except:
+                pass
+
+        # Create Binding Click function
+        def clicker(e):
+            select_record()
+
+        # Bindings
+        self.my_tree.bind("<ButtonRelease-1>", clicker)
+
+
+        self.btn_logout = Button(self.shops, width = 7, text="Back", command=self.back_from_shop)
+        self.btn_logout.place(x=27, y=15)
+
+
+        self.btn_buy = Button(self.shops, width = 14, text="Buy", command = lambda: self.do_buys(self.id_box.get(),self.name_box.get(),self.catgry_box.get(),self.price_box.get()))
+        self.btn_buy.place(x=290, y=420)
+
+        #self.btn_show = Button(self.shops, width = 14, text="show", command = lambda: self.show_image(self.name_box.get()))
+        #self.btn_show.place(x=290, y=390)
 
         self.shops.after(1000, self.reload_data_shop)
 
         self.shops.resizable(0,0)
         self.shops.mainloop()
+    
 
-    def back(self):
-        self.shops.destroy()
-        self.user_menu.deiconify()
+    #def show_image(self, nombre):
+    #    global src_objects
+
+    #    print(nombre)
+
+    #    srcs = {
+	   #             "name": nombre
+    #            }
+
+    #    y = requests.get(f'{base_url}/srcs', json = srcs)
+
+    #    data2 = y.text
+
 
     def reload_data_shop(self):
         global active_user, user_tokens
-        self.txt_shop_user.config(text = f"Usuario Activo: {active_user}")
-        self.txt_shop_tokens.config(text = f"Monedas Disponibles: {user_tokens}")
+        self.txt_shop_user.config(text = f"Active User: {active_user}")
+        self.txt_shop_tokens.config(text = f"Tokens Available: {user_tokens}")
 
         self.shops.after(1000, self.reload_data_shop)
 
 
+    def do_buys(self,id,nombre, categry, precio):
+        global user_tokens
+        if(user_tokens >= int(precio)):
+            user_tokens -= int(precio)
 
+            up_coins = {
+	                "nick": active_user,
+                    "monedas": str(user_tokens)
+                }
+
+            requests.put(f'{base_url}/up_coins', json = up_coins)
+
+            mb.showinfo("Do Buy", f"You bought, Name: {nombre}, Id: {id}, Category: {categry}, Price: {precio}")
+        else:
+            mb.showwarning("Buy Canceled", "You dont't have enough coins!")
+
+    def back_from_shop(self):
+        self.shops.destroy()
+        self.user_menu.deiconify()
 
 
     def plys(self):
+
+        rejoin_datas()
+
         self.user_menu.withdraw()
         self.plys = tk.Tk()
         self.plys.title('Play')
         self.plys.geometry('400x250+550+200')
 
-        self.txt_title = Label(self.plys, text = " > BATALLA NAVAL < ").place(x=140, y=20)
-        self.txt_mode = Label(self.plys, text = "Jugador vs Maquina").place(x=145, y=50)
-        self.table_dim = Label(self.plys, text = "Tamano del tablero (m x m) -->  m:").place(x=50, y=120)
+        self.txt_title = Label(self.plys, text = " > BATTLESHIP < ").place(x=155, y=20)
+        self.txt_mode = Label(self.plys, text = "Human vs Machine").place(x=150, y=50)
+        self.table_dim = Label(self.plys, text = "Board Size (m x m) -->  m:").place(x=60, y=120)
 
 
         self.user_text = Entry(self.plys)
-        self.user_text.place(x=250, y=120, width=100 , height=25)
+        self.user_text.place(x=240, y=120, width=100 , height=25)
 
 
-        self.btn_Send = Button(self.plys, width = 18, text="Tablero Automatico", command = lambda: self.confirm(self.user_text.get()))
-        self.btn_Send.place(x=140, y=160)
+        self.btn_Send = Button(self.plys, width = 18, text="Auto Generate Board", command = lambda: self.confirm(self.user_text.get()))
+        self.btn_Send.place(x=130, y=170)
 
         #self.btn_Send2 = Button(self.plys, width = 18, text="Configuaracion Tablero", command = lambda: self.confirm2(self.user_text.get()))
         #self.btn_Send2.place(x=140, y=200)
 
-        self.btn_back = Button(self.plys, width = 5, text="Atras", command=self.back_to_user_menu)
+        self.btn_back = Button(self.plys, width = 5, text="Back", command=self.back_to_user_menu)
         self.btn_back.place(x=20, y=20)
 
         self.plys.resizable(0,0)
@@ -1291,11 +1461,11 @@ class home():
 
     def confirm(self, size):
         if (size == "" or size == None):
-            mb.showerror("Request Failed", "Sorry, Inserte una Dimension")
+            mb.showerror("Request Failed", "Sorry, Type a Dimension")
         elif (int(size) <= 9):
-            mb.showerror("Request Failed", "Sorry, Tamanio permitido m >= 10")
+            mb.showerror("Request Failed", "Sorry, Allowed Size m >= 10")
         else:
-            self.do_play(size, None)
+            self.do_play(size)
 
 
     #def confirm2(self, size):
@@ -1308,19 +1478,20 @@ class home():
 
     
     def back_to_user_menu(self):
-        self.user_menu.deiconify()
         self.plys.destroy()
+        self.user_menu.deiconify()
+        
 
     #-------------------------------------realizar jugadas------------------------------------
 
-    def do_play(self, size, matrix_aux):
-        global user_life, matrix_size, user_tokens, game_over, active_user
+    def do_play(self, size):
+        global user_life, matrix_size, user_tokens, game_over, active_user, matrix_aux
         matrix_size = int(size)
 
         user_life = 3
-        
-        if(matrix_aux == None):
-            matrix_aux = auto_generate()
+
+
+        auto_generate()
 
         self.plys.withdraw()
         self.do_ply = tk.Tk()
@@ -1329,14 +1500,12 @@ class home():
 
         self.txt_tks = tk.Label(self.do_ply, text = f"Tokens: {user_tokens}")
         self.txt_tks.place(x = 300, y=20)
-        self.txt_lfs = tk.Label(self.do_ply, text = f"Vidas: {user_life}")
+        self.txt_lfs = tk.Label(self.do_ply, text = f"Lives: {user_life}")
         self.txt_lfs.place(x = 300, y=40)
 
-        self.active = tk.Label(self.do_ply, text = f"Usuario Activo: {active_user}").place(x = 135, y=60)
+        self.active = tk.Label(self.do_ply, text = f"Active User: {active_user}").place(x = 145, y=60)
 
-        
-
-        self.txt_enc = Label(self.do_ply, text = "Ingrese Coordenadas").place(x = 210, y=100)
+        self.txt_enc = Label(self.do_ply, text = "Enter Coordinates").place(x = 225, y=100)
         self.txt_x = Label(self.do_ply, text = "X: ").place(x=210, y=125)
         self.txt_y = Label(self.do_ply, text = "Y: ").place(x=270, y=125)
 
@@ -1346,10 +1515,10 @@ class home():
         self.user_text2 = Entry(self.do_ply)
         self.user_text2.place(x=290, y=125, width=35 , height=20)
 
-        self.btn_ing_jug = Button(self.do_ply, width = 14, text="Ingresar Jugada", command = lambda: self.confirm3(self.user_text.get(),self.user_text2.get(), matrix_aux, size))
+        self.btn_ing_jug = Button(self.do_ply, width = 14, text="Make Move", command = lambda: self.confirm3(self.user_text.get(),self.user_text2.get(), size))
         self.btn_ing_jug.place(x=80, y=125)
 
-        self.btn_leave = Button(self.do_ply, width = 14, text="Abandonar Partida", command = self.abandone)
+        self.btn_leave = Button(self.do_ply, width = 14, text="Leave", command = self.abandone)
         self.btn_leave.place(x=20, y=210)
 
         self.do_ply.after(1000, self.reload)
@@ -1362,13 +1531,13 @@ class home():
     def reload(self):
         global user_life, user_tokens
         self.txt_tks.config(text = f"Tokens: {user_tokens}")
-        self.txt_lfs.config(text = f"Vidas: {user_life}")
+        self.txt_lfs.config(text = f"Lives: {user_life}")
 
         self.do_ply.after(1000, self.reload)
 
 
-    def confirm3(self, posx, posy , matrix_aux, size):
-        global game_over2, game_over, active_user
+    def confirm3(self, posx, posy, size):
+        global game_over2, game_over, active_user, matrix_aux
         if (posx != "" and posy != "" and int(posx) <= int(size) and int(posy) <= int(size)):
             up_plays = {
 	                "nick": active_user,
@@ -1378,18 +1547,18 @@ class home():
 
             requests.post(f'{base_url}/up_plays', json = up_plays)
 
-            do_shot(matrix_aux,posx,posy)
+            matrix_aux.do_shot(posx,posy)
             generate_plays(matrix_aux)
             count_boats(matrix_aux)
             if(game_over == True):
-                mb.showerror("Game Over", "Te quedaste sin vidas!")
+                mb.showerror("Game Over", "You ran out of lives!")
                 self.descalificado()
 
             if(game_over2 == True):
-                mb.showinfo("Game Over", "Juego Terminado, Has ganado!")
+                mb.showinfo("Game Over", "Game Over, You Win!")
                 self.descalificado()
         else:
-            mb.showerror("Request Failed", "Sorry, Inserte Coordenadas Validas")
+            mb.showerror("Request Failed", "Sorry, Invalid Move")
 
     def descalificado(self):
         self.do_ply.destroy()
@@ -1400,7 +1569,7 @@ class home():
     def abandone(self):
         global user_tokens
         if(user_tokens >= 20):
-            mb.showinfo("Game Over", "Partida Abandonada!")
+            mb.showinfo("Game Over", "You Leave, You Lost!")
 
             user_tokens -= 20
 
@@ -1416,7 +1585,7 @@ class home():
             self.user_menu.deiconify()
 
         else:
-            mb.showerror("Request Failed", "No puedes abandonar, necesitas al menos 20 Tokens")
+            mb.showerror("Request Failed", "You can't leave, you need at least 20 Tokens")
 
     #-----------------------------configurar ubicacion de barcos----------------------------------------
     def settings(self, size):
@@ -1427,7 +1596,7 @@ class home():
 
         global portaviones, submarinos, destructores, buques
 
-        matrix_aux = generate_prototipo()
+        matrix_aux.generate_prototipo()
 
         self.plys.withdraw()
         self.settngs = tk.Tk()
@@ -1654,11 +1823,11 @@ class home():
         self.admin_menu.title('Admin Menu')
         self.admin_menu.geometry('250x250+650+200')
 
-        self.active = Label(self.admin_menu, text = "Usuario Administrador").place(x = 60, y=20)
+        self.active = Label(self.admin_menu, text = "Admin User").place(x = 90, y=20)
 
-        self.btn_loadfile = Button(self.admin_menu, width = 14, text="Carga Masiva", command=self.load_file )
+        self.btn_loadfile = Button(self.admin_menu, width = 14, text="Data Upload", command=self.load_file )
         self.btn_loadfile.place(x=70, y=80)
-        self.btn_reports = Button(self.admin_menu, width = 14, text="Reportes", command=self.report_menu )
+        self.btn_reports = Button(self.admin_menu, width = 14, text="Reports", command=self.report_menu )
         self.btn_reports.place(x=70, y=120)
         self.btn_logout = Button(self.admin_menu, width = 14, text="Logout", command= self.admin_logout )
         self.btn_logout.place(x=70, y=160)
@@ -1688,25 +1857,32 @@ class home():
         self.admin_menu.withdraw()
         self.report_menu = tk.Tk()
         self.report_menu.title('Reports Menu')
-        self.report_menu.geometry('250x340+650+200')
+        self.report_menu.geometry('250x430+650+200')
 
 
-        self.active = Label(self.report_menu, text = "REPORTS").place(x = 100, y=20)
+        self.active = Label(self.report_menu, text = "REPORTS").place(x = 105, y=20)
 
-        self.btn_rpt_listaC = Button(self.report_menu, width = 16, text="Lista Circular", command=self.crc_graph)
+        self.btn_rpt_listaC = Button(self.report_menu, width = 16, text="Circular List", command=self.crc_graph)
         self.btn_rpt_listaC.place(x=70, y=50)
-        self.btn_rpt_listaL = Button(self.report_menu, width = 16, text="Lista de Listas", command=self.ldl_graph)
+        self.btn_rpt_listaL = Button(self.report_menu, width = 16, text="List of Lists", command=self.ldl_graph)
         self.btn_rpt_listaL.place(x=70, y=90)
-        self.btn_rpt_colaM = Button(self.report_menu, width = 16, text="Cola de Movimientos", command=self.cola_graph)
+        self.btn_rpt_colaM = Button(self.report_menu, width = 16, text="Moves Queue", command=self.cola_graph)
         self.btn_rpt_colaM.place(x=70, y=130)
-        self.btn_rpt_listaP = Button(self.report_menu, width = 16, text="Lista de Pilas", command=self.ldp_graph)
+        self.btn_rpt_listaP = Button(self.report_menu, width = 16, text="List of Stack", command=self.ldp_graph)
         self.btn_rpt_listaP.place(x=70, y=170)
-        self.btn_rpt_listaU = Button(self.report_menu, width = 16, text="Listado de Usuarios", command=self.users_list)
+        self.btn_rpt_listaU = Button(self.report_menu, width = 16, text="Users List", command=self.users_list)
         self.btn_rpt_listaU.place(x=70, y=210)
-        self.btn_rpt_listaA = Button(self.report_menu, width = 16, text="Listado de Articulos", command = self.items_list)
+        self.btn_rpt_listaA = Button(self.report_menu, width = 16, text="Items List", command = self.items_list)
         self.btn_rpt_listaA.place(x=70, y=250)
+
+        self.btn_rpt_BTREE = Button(self.report_menu, width = 16, text="Binary Tree")
+        self.btn_rpt_BTREE.place(x=70, y=290)
+
+        self.btn_rpt_AVLTREE = Button(self.report_menu, width = 16, text="AVL Tree")
+        self.btn_rpt_AVLTREE.place(x=70, y=330)
+
         self.btn_exit = Button(self.report_menu, width = 16, text="Exit", command= self.report_logout )
-        self.btn_exit.place(x=70, y=290)
+        self.btn_exit.place(x=70, y=370)
 
 
         self.report_menu.resizable(0,0)
@@ -1756,9 +1932,9 @@ class home():
         data = x.text
         
         if(data == "grafica"):
-            mb.showinfo('Welcome', 'Lista de Pilas de Jugadas!')
+            mb.showinfo('Welcome', 'List of Stacks!')
         elif(data == "nografica"):
-            mb.showerror("Request Failed", "Imposible, Lista vacia!")
+            mb.showerror("Request Failed", "Sorry, List Empty!")
 
     
     def crc_graph(self):
@@ -1767,9 +1943,9 @@ class home():
         data = x.text
         
         if(data == "grafica"):
-            mb.showinfo('Welcome', 'Lista circular de Usuarios!')
+            mb.showinfo('Welcome', 'Users Circular list!')
         elif(data == "nografica"):
-            mb.showerror("Request Failed", "Imposible, Lista vacia!")
+            mb.showerror("Request Failed", "Sorry, List Empty!")
 
     def ldl_graph(self):
 
@@ -1777,9 +1953,9 @@ class home():
         data = x.text
         
         if(data == "grafica"):
-            mb.showinfo('Welcome', 'Lista de listas!')
+            mb.showinfo('Welcome', 'List of Lists!')
         elif(data == "nografica"):
-            mb.showerror("Request Failed", "Imposible, Lista vacia!")
+            mb.showerror("Request Failed", "Sorry, List Empty!")
 
     def cola_graph(self):
 
@@ -1787,23 +1963,16 @@ class home():
         data = x.text
         
         if(data == "grafica"):
-            mb.showinfo('Welcome', 'Cola de Movimientos!')
+            mb.showinfo('Welcome', 'Moves Queue!')
         elif(data == "nografica"):
-            mb.showerror("Request Failed", "Imposible, Lista vacia!")
-    
+            mb.showerror("Request Failed", "Sorry, List Empty!")
 
-    def show_struct(self):
-        x = requests.get(f'{base_url}/items')
-        datas = x.json()
-        
-        for i in datas:
-            print("categoria")
-            for j in i:
-                print(j)
 
     def report_logout(self):
         self.report_menu.destroy()
         self.admin_menu.deiconify()
+
+
 
 if __name__ == '__main__':
     home()

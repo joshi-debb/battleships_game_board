@@ -30,6 +30,8 @@ public:
     vector<crow::json::wvalue> bubbleSortUP();
     vector<crow::json::wvalue> bubbleSortDW();
 
+    nodoItem* searchUsers(string name);
+
     bool searchExist(string name);
     bool is_empty();
 

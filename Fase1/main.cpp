@@ -20,6 +20,7 @@ using std::stoi;
 
 int main() {
 
+
 	listaCircularUser listaUsers;
 	listaSimpleItem listItem;
 	listaSimpleHeaders structList;
@@ -45,6 +46,7 @@ int main() {
 				if (!x)
 					return crow::response(400);
 				string nick = x["nick"].s();
+
 				string pass = x["password"].s();
 
 				nodoUser* usuario = listaUsers.searchUsers(nick);
@@ -331,6 +333,26 @@ int main() {
 				string str = ss.str();
 
 				return crow::response(str);
+			});
+
+
+	CROW_ROUTE(app, "/srcs")
+		([&listItem](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x)
+					return crow::response(400);
+				string nick = x["name"].s();
+
+				nodoItem* item = listItem.searchUsers(nick);
+
+				if (item == nullptr) {
+					return crow::response("Aticulo no encontrado");
+				}
+
+				string aux = item->getSrc();
+
+				return crow::response(aux);
 			});
 
 	app.port(5000).multithreaded().run();

@@ -9,6 +9,7 @@ private:
     string nick, password;
     int coins = 0;
     int age = 0;
+    int id = 0;
 
 public:
 
@@ -21,6 +22,9 @@ public:
         atras = NULL;
     }
 
+    void setId(int id) {
+        this->id = id;
+    }
 
     void setNick(string n) {
         this->nick = n;
@@ -53,4 +57,9 @@ public:
     int getCoins() {
         return coins;
     }
+
+    int getId() {
+        return id;
+    }
+
 };

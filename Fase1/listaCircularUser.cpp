@@ -18,7 +18,6 @@ using std::stoi;
 #include "nodoUser.h"
 #include "crow.h"
 
-
 void listaCircularUser::loadFile(string ruta) {
 
     nodoUser* nuevo;
@@ -39,10 +38,13 @@ void listaCircularUser::loadFile(string ruta) {
 
             string coins = dataUser[i]["monedas"].asString();
             string age = dataUser[i]["edad"].asString();
+            string id = dataUser[i]["id"].asString();
+            nuevo->setId(stoi(id));
             nuevo->setNick(dataUser[i]["nick"].asString());
             nuevo->setPassword(dataUser[i]["password"].asString());
             nuevo->setCoins(stoi(coins));
             nuevo->setAge(stoi(age));
+
 
             addToEnd(nuevo);
         }
@@ -193,6 +195,7 @@ void listaCircularUser::showList() {
     }
 }
 
+
 void listaCircularUser::doGraphics() {
     string dot = "";
 
@@ -286,6 +289,7 @@ vector<crow::json::wvalue> listaCircularUser::bubbleSortUP() {
 
         do {
             crow::json::wvalue x;
+            x["id"] = actual1->getId();
             x["nick"] = actual1->getNick();
             x["password"] = actual1->getPassword();
             x["edad"] = actual1->getAge();
@@ -348,6 +352,7 @@ vector<crow::json::wvalue> listaCircularUser::bubbleSortDW() {
 
         do {
             crow::json::wvalue x;
+            x["id"] = actual1->getId();
             x["nick"] = actual1->getNick();
             x["password"] = actual1->getPassword();
             x["edad"] = actual1->getAge();

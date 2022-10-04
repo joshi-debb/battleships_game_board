@@ -236,6 +236,22 @@ bool listaSimpleItem::searchExist(string name) {
 
 }
 
+nodoItem* listaSimpleItem::searchUsers(string name) {
+    nodoItem* actual = new nodoItem();
+    actual = primero;
+    string aux = name;
+
+    if (primero != NULL) {
+        do {
+            if (actual->getName() == aux) {
+                return actual;
+            }
+            actual = actual->siguiente;
+        } while (actual != primero);
+    }
+    return nullptr;
+}
+
 
 bool listaSimpleItem::is_empty() {
     nodoItem* actual = new nodoItem();
