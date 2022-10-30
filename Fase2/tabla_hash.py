@@ -2,6 +2,11 @@
 import os
 import webbrowser
 
+import fitz
+
+verde_limon = "#59CE8F"
+gris_bajo = "#E8F9FD"
+
 
 class N_Simple():
     def __init__(self, id, nombre, precio):
@@ -134,7 +139,6 @@ class Tabla_Hash():
     def Hash(self, id_user, p_name):
         aux = 0
         for caracter in str(p_name):
-            # print(caracter, ord(caracter))
             aux += ord(caracter)
         prekey = id_user+int(aux)
         key = (prekey % self.size_M)
@@ -209,7 +213,6 @@ class Tabla_Hash():
         for n in range(2, cont):
             if cont % n == 0:
                 cont += 1
-        print("Sig Primo: ", cont)
         return cont
     
     def porcentaje_ocupacion(self):
@@ -223,7 +226,7 @@ class Tabla_Hash():
         pivote = self.Indice.primero
         posx = 0
         while pivote != None:
-            contenido += '\n\tnode[label = "{}" pos="-1,-{}!" shape=box]x{};'.format(pivote.id, posx, pivote.id)
+            contenido += '\n\tnode[label = "{}" fillcolor="{}" pos="-1,-{}!" shape=box]x{};'.format(pivote.id,verde_limon,posx, pivote.id)
             pivote = pivote.siguiente
             posx += 1
 
@@ -240,7 +243,7 @@ class Tabla_Hash():
             pivote_celda : Nodo_Hash = pivote.acceso
             while pivote_celda != None:
                 if pivote_celda.datos != None:
-                    contenido += '\n\tnode[label="Id: {}\nNombre: {}" pos="1,-{}!" shape=box]i{}_1;'.format(pivote_celda.datos.id, pivote_celda.datos.nombre,posx, pivote_celda.coordenadaX)
+                    contenido += '\n\tnode[label="Id: {}\nNombre: {}" pos="1,-{}!" fillcolor="{}" shape=box]i{}_1;'.format(pivote_celda.datos.id, pivote_celda.datos.nombre,posx,gris_bajo,pivote_celda.coordenadaX)
                 pivote_celda = pivote_celda.derecha
 
             pivote_celda = pivote.acceso
@@ -248,11 +251,6 @@ class Tabla_Hash():
                 if pivote_celda.derecha != None:
                     contenido += '\n\ti{}_1->i{}_1;'.format(pivote_celda.coordenadaX, pivote_celda.derecha.coordenadaX)
                 pivote_celda = pivote_celda.derecha
-
-            # pivote_celda = pivote.acceso
-            # if(pivote_celda != None):
-            #     if(pivote_celda.derecha != None):
-            #         contenido += '\n\tx{}->i{}_1;'.format(pivote.id, pivote.acceso.coordenadaX)
 
             pivote_celda = pivote.acceso
             if(pivote_celda != None):
@@ -263,20 +261,18 @@ class Tabla_Hash():
           
         contenido += '\n}'
 
-        # dot = "Blockchain.dot"
-        # with open(dot, 'w') as grafo:
-        #     grafo.write(contenido)
-        # result = "Blockchain.png"
-        # os.system("dot -Tpng " + dot + " -o " + result)
-        # webbrowser.open(result)
-
         dot = "Hash_{}.txt".format(type_player)
         with open(dot, 'w') as grafo:
             grafo.write(contenido)
         result = "Hash_{}.pdf".format(type_player)
         os.system("neato -Tpdf " + dot + " -o " + result)
-        webbrowser.open(result)
 
+        pdf = fitz.open(result)
+        page = pdf.load_page(0)
+        pix = page.get_pixmap()
+        pix.pil_save("Hashtable.png")
+
+        webbrowser.open("Hashtable.png")
 
 
 

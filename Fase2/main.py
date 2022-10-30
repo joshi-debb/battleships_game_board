@@ -47,7 +47,7 @@ Navy = '#4B68B8'
 Gray = '#808080'
 Teal = '#008080'
 withe = '#FFFFFF'
-Fill = 'red:violet'
+
 
 Row_c = '#1CD6CE'
 Col_c = '#FEDB39'
@@ -362,7 +362,7 @@ class MatrizDispersa():
         pivote = self.filas.primero
         posx = 0
         while pivote != None:
-            contenido += '\n\tnode[label = "{}" pos="-1,-{}!" shape=box]x{};'.format(pivote.id, posx, pivote.id)
+            contenido += '\n\tnode[label = "{}" pos="-1,-{}!" fillcolor="#FF6363" shape=box]x{};'.format(pivote.id, posx, pivote.id)
             pivote = pivote.siguiente
             posx += 1
 
@@ -387,7 +387,7 @@ class MatrizDispersa():
                         break             
                     pivotey = pivotey.siguiente
                 if pivote_celda.caracter == 'x':
-                    contenido += '\n\tnode[label="{}" pos="{},-{}!" shape=box]i{}_{};'.format(
+                    contenido += '\n\tnode[label="{}" pos="{},-{}!" fillcolor="#FAF5E4" shape=box]i{}_{};'.format(
                         pivote_celda.coordenadaY,posyy, posx, pivote_celda.coordenadaX, pivote_celda.coordenadaY
                     )
                 pivote_celda = pivote_celda.derecha
@@ -417,8 +417,8 @@ class MatrizDispersa():
     def do_Graphics_grafo(self,type_player):
         global Org_c,Row_c,Col_c
         contenido =  "digraph G{"
-        contenido += '\nnode[fontname="Helvetica,Arial,sans-serif"]'
-        contenido += '\nedge[fontname="Helvetica,Arial,sans-serif", arrowsize=0.5,]'
+        contenido += '\nnode[fontname="Arial", fillcolor="#FEB139"]'
+        contenido += '\nedge[arrowsize=0.5]'
         contenido += "\nrankdir=LR;"
         contenido += "\nnode[shape = circle];"
 
@@ -926,7 +926,7 @@ class Boxes_List():
 
 matrix_aux = Boxes_List()
 matrix_aux2 = Boxes_List()
-Hash_Table = Tabla_Hash(13)
+# Hash_Table = Tabla_Hash(13)
 new_blockchain = Blockchain()
 
 def rejoin_datas():
@@ -1752,6 +1752,8 @@ class home():
 
         self.shops.after(1000, self.reload_data_shop)
 
+        self.hashtable = Tabla_Hash(13)
+
         self.shops.resizable(0,0)
         self.shops.mainloop()
 
@@ -1764,16 +1766,17 @@ class home():
         self.shops.after(1000, self.reload_data_shop)
 
     def add_to_cart(self, id_item, name_item, price_item):
-        global Hash_Table, active_id, cant_cart, total_price
+        global active_id, cant_cart, total_price
+        
         if(id_item != None and id_item != ''):
-            Hash_Table.insert(active_id, int(id_item), name_item, price_item)
+            self.hashtable.insert(active_id, int(id_item), name_item, price_item)
             cant_cart += 1
             total_price += int(price_item)
         #crear un json pra retornar los datos desde la tabla hash ?
 
 
     def do_buys(self):
-        global Hash_Table,cant_cart, total_price
+        global cant_cart, total_price
 
         self.shops.withdraw()
         self.do_buys = tk.Tk()
@@ -1910,7 +1913,7 @@ class home():
             self.my_tree2.delete(record)
         count = 0
 
-        aux_list: L_Simple = Hash_Table.show_datas()
+        aux_list: L_Simple = self.hashtable.show_datas()
 
         tmp = aux_list.primero
         while tmp != None:
@@ -1937,12 +1940,11 @@ class home():
         self.shops.deiconify()
 
     def show_graph_cart(self):
-        global Hash_Table
-        Hash_Table.do_Graphics('Cart')
+        self.hashtable.do_Graphics('Cart')
 
     def clear_cart(self):
-        global Hash_Table, count, cant_cart, total_price
-        Hash_Table.delete_all()
+        global count, cant_cart, total_price
+        self.hashtable = Tabla_Hash(13)
         for record in self.my_tree2.get_children():
             self.my_tree2.delete(record)
         count = 0
@@ -1951,9 +1953,9 @@ class home():
 
 
     def delete_from_cart(self, id, price):
-        global Hash_Table, count, cant_cart, total_price
+        global count, cant_cart, total_price
 
-        Hash_Table.delete_by_key(int(id))
+        self.hashtable.delete_by_key(int(id))
         x = self.my_tree2.selection()[0]
         self.my_tree2.delete(x)
         count -= 1
@@ -1961,13 +1963,13 @@ class home():
         total_price -= int(price)
 
     def pay(self):
-        global Hash_Table,new_blockchain, user_tokens
+        global new_blockchain, user_tokens
 
         if (user_tokens >= total_price):
             
             user_tokens -= total_price
             
-            aux_list: L_Simple = Hash_Table.show_datas()
+            aux_list: L_Simple = self.hashtable.show_datas()
 
             new_blockchain.insertBlock(aux_list)
             

@@ -1,12 +1,10 @@
 
-
+from tabla_hash import L_Simple
+from hashlib import sha256
 from datetime import datetime
 import os
 import webbrowser
 
-
-from tabla_hash import L_Simple
-from hashlib import sha256
 
 class Block:
     def __init__(self, lista: L_Simple, timestamp:str, nonce, previoushash, hash, index) -> None:
@@ -16,14 +14,9 @@ class Block:
         self.hash = hash
         self.index = index
         self.next = None
-        
-        #atributos de compra
         self.lista = lista
 
-    
-
-
-        
+      
 class Blockchain:
     def __init__(self) -> None:
         self.genesis = None
@@ -49,7 +42,7 @@ class Blockchain:
         while True:
                 nonce += 1
                 StringHash = str(self.get_index())+timestamp+previoushash+str(nonce)
-                if(str(sha256(StringHash.encode('utf-8')).hexdigest()).find(self.get_prefix()) ==0):
+                if(str(sha256(StringHash.encode('utf-8')).hexdigest()).find(self.get_prefix()) == 0):
                         Ubicado = sha256(StringHash.encode('utf-8')).hexdigest()
                     
                         break;
@@ -74,8 +67,7 @@ class Blockchain:
 
 
     def do_graphics(self):
-        contenido = '''digraph G{ node [shape=record style=filled]'''
-        
+        contenido = '''digraph G{ node [shape=record, fontname="Arial"]'''
         aux = self.genesis
         while aux is not None:
             contenido += '''\nB_{} ['''.format(aux.index)
@@ -86,23 +78,18 @@ class Blockchain:
             contenido += '''<tr> <td align="left">NONCE:      {}</td> </tr>'''.format(aux.nonce)
             contenido += '''<tr> <td align="left">PREV_HASH:  {}  </td> </tr>'''.format(aux.previoushash)
             contenido += '''<tr> <td align="left">NEW_HASH:   {}  </td> </tr>'''.format(aux.hash)
-
             contenido += '''<tr> <td align="left">Shopping Information: \n </td> </tr>'''
             tmp = aux.lista.primero
             while tmp != None:
                 contenido += '<tr> <td align="left">Item_ID: {} , Item_Name: {} , Item_Price: {}</td> </tr>'.format(tmp.id, tmp.nombre, tmp.precio)
                 tmp = tmp.siguiente
-
             contenido += '''</table> </td> </tr>'''
             contenido += ''' </table>> ] '''
-
-            aux = aux.next
-            
+            aux = aux.next 
         aux2:Block = self.genesis
         while aux2.next is not None:
             contenido += "B_{} -> B_{}; \n".format(aux2.index,aux2.next.index)
             aux2 = aux2.next
-        
         contenido += '\n}'
         
         dot = "Blockchain.dot"
