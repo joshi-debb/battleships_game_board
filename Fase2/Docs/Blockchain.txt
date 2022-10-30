@@ -1,0 +1,10 @@
+digraph G{ node [shape=record style=filled]
+B_0 [shape=plain label=<<table border="0" cellpadding="0"><tr> <td> <table border="0" cellborder="0" cellspacing="10" ><tr> <td align="left">INDEX:      0</td> </tr><tr> <td align="left">TIME STAMP: 30-10-2022::05:08:48</td> </tr><tr> <td align="left">NONCE:      14750</td> </tr><tr> <td align="left">PREV_HASH:  0000  </td> </tr><tr> <td align="left">NEW_HASH:   00006bbf1ba1483d6d6c6b616104a1078bc02bbb069d6a639d5fa160710b5283  </td> </tr><tr> <td align="left">Shopping Information: 
+ </td> </tr><tr> <td align="left">Item_ID: 9 , Item_Name: rata , Item_Price: 500</td> </tr></table> </td> </tr> </table>> ] 
+B_1 [shape=plain label=<<table border="0" cellpadding="0"><tr> <td> <table border="0" cellborder="0" cellspacing="10" ><tr> <td align="left">INDEX:      1</td> </tr><tr> <td align="left">TIME STAMP: 30-10-2022::05:10:33</td> </tr><tr> <td align="left">NONCE:      12692</td> </tr><tr> <td align="left">PREV_HASH:  00006bbf1ba1483d6d6c6b616104a1078bc02bbb069d6a639d5fa160710b5283  </td> </tr><tr> <td align="left">NEW_HASH:   0000402707d439bdc5b0ad9bd1e40202523699ae26c0c93d4b591eac93b9b078  </td> </tr><tr> <td align="left">Shopping Information: 
+ </td> </tr></table> </td> </tr> </table>> ] 
+B_2 [shape=plain label=<<table border="0" cellpadding="0"><tr> <td> <table border="0" cellborder="0" cellspacing="10" ><tr> <td align="left">INDEX:      2</td> </tr><tr> <td align="left">TIME STAMP: 30-10-2022::05:11:49</td> </tr><tr> <td align="left">NONCE:      180945</td> </tr><tr> <td align="left">PREV_HASH:  0000402707d439bdc5b0ad9bd1e40202523699ae26c0c93d4b591eac93b9b078  </td> </tr><tr> <td align="left">NEW_HASH:   0000ab5be54dc8adb930d243db74a27e63860f6f919e8fd0b24c836bd91b6336  </td> </tr><tr> <td align="left">Shopping Information: 
+ </td> </tr><tr> <td align="left">Item_ID: 5 , Item_Name: pintura , Item_Price: 200</td> </tr></table> </td> </tr> </table>> ] B_0 -> B_1; 
+B_1 -> B_2; 
+
+}

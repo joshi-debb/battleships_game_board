@@ -1,0 +1,44 @@
+{
+	"usuarios": [
+	{ "id": "1","nick": "pepe", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "id": "2","nick": "pepe", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "id": "3","nick": "pepa", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "id": "4","nick": "papu", "password": "asdf", "monedas": "1000", "edad": "23" },
+	{ "id": "5","nick": "pipe", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "id": "6","nick": "pipa", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "id": "7","nick": "pipu", "password": "asdf", "monedas": "1000", "edad": "23" },
+	{ "id": "8","nick": "tita", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "id": "9","nick": "tito", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "id": "10","nick": "tatu", "password": "asdf", "monedas": "1000", "edad": "23" },
+	{ "id": "11","nick": "toto", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "id": "12","nick": "memo", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "id": "13","nick": "memu", "password": "asdf", "monedas": "1000", "edad": "23" },
+	{ "id": "14","nick": "matu", "password": "asdf", "monedas": "500", "edad": "21" },
+	{ "id": "15","nick": "tutu", "password": "asdf", "monedas": "3000", "edad": "22" },
+	{ "id": "16","nick": "tata", "password": "asdf", "monedas": "1000", "edad": "23" }
+	],
+	"articulos": [
+	{ "id": 1, "categoria": "comun", "precio": "100", "nombre": "barco", "src": "ruta" },
+	{ "id": 2, "categoria": "epico", "precio": "200", "nombre": "papa", "src": "ruta" },
+	{ "id": 3, "categoria": "comun", "precio": "500", "nombre": "vela", "src": "ruta" },
+	{ "id": 4, "categoria": "legendario", "precio": "100", "nombre": "bala", "src": "ruta" },
+	{ "id": 5, "categoria": "comun", "precio": "200", "nombre": "pintura", "src": "ruta" },
+	{ "id": 6, "categoria": "legendario", "precio": "500", "nombre": "fuego", "src": "ruta" },
+	{ "id": 7, "categoria": "comun", "precio": "100", "nombre": "sombrero", "src": "ruta" },
+	{ "id": 8, "categoria": "epico", "precio": "200", "nombre": "escopeta", "src": "ruta" },
+	{ "id": 9, "categoria": "comun", "precio": "500", "nombre": "rata", "src": "ruta" },
+	{ "id": 10, "categoria": "comun", "precio": "100", "nombre": "skin", "src": "ruta" },
+	{ "id": 11, "categoria": "epico", "precio": "200", "nombre": "pata", "src": "ruta" },
+	{ "id": 12, "categoria": "legendario", "precio": "500", "nombre": "timon", "src": "ruta" }
+	],
+	"tutorial": {
+	"ancho":"20",
+	"alto":"20",
+	"movimientos":[
+	{ "x": "1", "y": "3" },
+	{ "x": "4", "y": "3" },
+	{ "x": "2", "y": "1" },
+	{ "x": "1", "y": "5" },
+	{ "x": "7", "y": "9" }]
+	}
+}

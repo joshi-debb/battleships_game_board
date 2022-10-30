@@ -1,0 +1,658 @@
+
+  {
+    "usuarios": [
+      {
+        "id": "31",
+        "nick": "Hoover9876",
+        "password": "DELPHIDE",
+        "monedas": "5795",
+        "edad": "30"
+      },
+      {
+        "id": "35",
+        "nick": "Silva5379",
+        "password": "EZENT",
+        "monedas": "8041",
+        "edad": "38"
+      },
+      {
+        "id": "49",
+        "nick": "Garrett9497",
+        "password": "IMPERIUM",
+        "monedas": "8028",
+        "edad": "51"
+      },
+      {
+        "id": "54",
+        "nick": "Gillespie2277",
+        "password": "LYRICHORD",
+        "monedas": "3224",
+        "edad": "29"
+      },
+      {
+        "id": "25",
+        "nick": "Isabelle7888",
+        "password": "MELBACOR",
+        "monedas": "2118",
+        "edad": "50"
+      },
+      {
+        "id": "45",
+        "nick": "Pam8878",
+        "password": "TINGLES",
+        "monedas": "281",
+        "edad": "54"
+      },
+      {
+        "id": "45",
+        "nick": "Scott4859",
+        "password": "UPLINX",
+        "monedas": "4151",
+        "edad": "12"
+      },
+      {
+        "id": "5",
+        "nick": "Bell4469",
+        "password": "ECSTASIA",
+        "monedas": "9276",
+        "edad": "14"
+      },
+      {
+        "id": "5",
+        "nick": "Long5198",
+        "password": "STROZEN",
+        "monedas": "8189",
+        "edad": "10"
+      },
+      {
+        "id": "46",
+        "nick": "Ladonna861",
+        "password": "MANTRO",
+        "monedas": "8681",
+        "edad": "36"
+      },
+      {
+        "id": "15",
+        "nick": "Spence5777",
+        "password": "IRACK",
+        "monedas": "658",
+        "edad": "25"
+      }
+    ],
+    "articulos":[
+      {
+        "id": 211,
+        "categoria": "Level1",
+        "precio": "30",
+        "nombre": "Tanner",
+        "src": "C://imgs//img5.jpg"
+      },
+      {
+        "id": 745,
+        "categoria": "Leve2",
+        "precio": "26",
+        "nombre": "Clemons",
+        "src": "C://imgs//img15.jpg"
+      },
+      {
+        "id": 570,
+        "categoria": "Level3",
+        "precio": "33",
+        "nombre": "Goodwin",
+        "src": "C://imgs//img19.jpg"
+      },
+      {
+        "id": 392,
+        "categoria": "Level4",
+        "precio": "35",
+        "nombre": "Fox",
+        "src": "C://imgs//img7.jpg"
+      },
+      {
+        "id": 902,
+        "categoria": "Level3",
+        "precio": "24",
+        "nombre": "Montoya",
+        "src": "C://imgs//img2.jpg"
+      },
+      {
+        "id": 716,
+        "categoria": "Level3",
+        "precio": "21",
+        "nombre": "Dorsey",
+        "src": "C://imgs//img1.jpg"
+      },
+      {
+        "id": 746,
+        "categoria": "Level3",
+        "precio": "36",
+        "nombre": "Jacobson",
+        "src": "C://imgs//img5.jpg"
+      },
+      {
+        "id": 872,
+        "categoria": "Level3",
+        "precio": "35",
+        "nombre": "Glover",
+        "src": "C://imgs//img12.jpg"
+      },
+      {
+        "id": 464,
+        "categoria": "Leve2",
+        "precio": "40",
+        "nombre": "Mclaughlin",
+        "src": "C://imgs//img13.jpg"
+      },
+      {
+        "id": 932,
+        "categoria": "Level4",
+        "precio": "31",
+        "nombre": "Bird",
+        "src": "C://imgs//img17.jpg"
+      },
+      {
+        "id": 449,
+        "categoria": "Level1",
+        "precio": "38",
+        "nombre": "Mcdowell",
+        "src": "C://imgs//img10.jpg"
+      },
+      {
+        "id": 123,
+        "categoria": "Leve2",
+        "precio": "21",
+        "nombre": "Bean",
+        "src": "C://imgs//img17.jpg"
+      },
+      {
+        "id": 213,
+        "categoria": "Level1",
+        "precio": "34",
+        "nombre": "Conrad",
+        "src": "C://imgs//img12.jpg"
+      },
+      {
+        "id": 600,
+        "categoria": "Level1",
+        "precio": "34",
+        "nombre": "Vazquez",
+        "src": "C://imgs//img3.jpg"
+      },
+      {
+        "id": 713,
+        "categoria": "Level1",
+        "precio": "37",
+        "nombre": "Travis",
+        "src": "C://imgs//img7.jpg"
+      },
+      {
+        "id": 955,
+        "categoria": "Leve2",
+        "precio": "36",
+        "nombre": "Oconnor",
+        "src": "C://imgs//img15.jpg"
+      },
+      {
+        "id": 346,
+        "categoria": "Leve2",
+        "precio": "31",
+        "nombre": "Mccormick",
+        "src": "C://imgs//img9.jpg"
+      },
+      {
+        "id": 656,
+        "categoria": "Leve2",
+        "precio": "24",
+        "nombre": "Leblanc",
+        "src": "C://imgs//img14.jpg"
+      },
+      {
+        "id": 265,
+        "categoria": "Leve2",
+        "precio": "39",
+        "nombre": "Scott",
+        "src": "C://imgs//img7.jpg"
+      },
+      {
+        "id": 243,
+        "categoria": "Level3",
+        "precio": "31",
+        "nombre": "Dickson",
+        "src": "C://imgs//img8.jpg"
+      },
+      {
+        "id": 577,
+        "categoria": "Level4",
+        "precio": "29",
+        "nombre": "Rowland",
+        "src": "C://imgs//img15.jpg"
+      },
+      {
+        "id": 172,
+        "categoria": "Leve2",
+        "precio": "36",
+        "nombre": "Conway",
+        "src": "C://imgs//img20.jpg"
+      },
+      {
+        "id": 316,
+        "categoria": "Level4",
+        "precio": "29",
+        "nombre": "Clay",
+        "src": "C://imgs//img5.jpg"
+      },
+      {
+        "id": 215,
+        "categoria": "Level4",
+        "precio": "31",
+        "nombre": "Knowles",
+        "src": "C://imgs//img5.jpg"
+      },
+      {
+        "id": 630,
+        "categoria": "Level1",
+        "precio": "22",
+        "nombre": "Savage",
+        "src": "C://imgs//img13.jpg"
+      },
+      {
+        "id": 248,
+        "categoria": "Level4",
+        "precio": "37",
+        "nombre": "Nicholson",
+        "src": "C://imgs//img8.jpg"
+      },
+      {
+        "id": 250,
+        "categoria": "Leve2",
+        "precio": "21",
+        "nombre": "Poole",
+        "src": "C://imgs//img9.jpg"
+      },
+      {
+        "id": 763,
+        "categoria": "Level4",
+        "precio": "25",
+        "nombre": "Nash",
+        "src": "C://imgs//img3.jpg"
+      },
+      {
+        "id": 398,
+        "categoria": "Level4",
+        "precio": "40",
+        "nombre": "Hunt",
+        "src": "C://imgs//img9.jpg"
+      },
+      {
+        "id": 853,
+        "categoria": "Level1",
+        "precio": "38",
+        "nombre": "Hess",
+        "src": "C://imgs//img6.jpg"
+      },
+      {
+        "id": 900,
+        "categoria": "Leve2",
+        "precio": "28",
+        "nombre": "Case",
+        "src": "C://imgs//img9.jpg"
+      },
+      {
+        "id": 808,
+        "categoria": "Leve2",
+        "precio": "38",
+        "nombre": "Henson",
+        "src": "C://imgs//img16.jpg"
+      },
+      {
+        "id": 766,
+        "categoria": "Level4",
+        "precio": "35",
+        "nombre": "Johnson",
+        "src": "C://imgs//img5.jpg"
+      },
+      {
+        "id": 708,
+        "categoria": "Leve2",
+        "precio": "36",
+        "nombre": "Oneil",
+        "src": "C://imgs//img2.jpg"
+      },
+      {
+        "id": 924,
+        "categoria": "Level4",
+        "precio": "21",
+        "nombre": "Reed",
+        "src": "C://imgs//img3.jpg"
+      },
+      {
+        "id": 113,
+        "categoria": "Level3",
+        "precio": "27",
+        "nombre": "Fitzpatrick",
+        "src": "C://imgs//img9.jpg"
+      },
+      {
+        "id": 350,
+        "categoria": "Level4",
+        "precio": "36",
+        "nombre": "Mccarthy",
+        "src": "C://imgs//img13.jpg"
+      },
+      {
+        "id": 759,
+        "categoria": "Level3",
+        "precio": "32",
+        "nombre": "Orr",
+        "src": "C://imgs//img15.jpg"
+      },
+      {
+        "id": 830,
+        "categoria": "Level1",
+        "precio": "33",
+        "nombre": "Walls",
+        "src": "C://imgs//img15.jpg"
+      }
+    ],
+    "tutorial": {
+      "ancho": "46",
+      "alto": "46",
+      "movimientos":[
+        {
+          "x": "39",
+          "y": "22"
+        },
+        {
+          "x": "39",
+          "y": "28"
+        },
+        {
+          "x": "34",
+          "y": "30"
+        },
+        {
+          "x": "34",
+          "y": "37"
+        },
+        {
+          "x": "27",
+          "y": "27"
+        },
+        {
+          "x": "28",
+          "y": "26"
+        },
+        {
+          "x": "30",
+          "y": "23"
+        },
+        {
+          "x": "25",
+          "y": "39"
+        },
+        {
+          "x": "32",
+          "y": "40"
+        },
+        {
+          "x": "37",
+          "y": "35"
+        },
+        {
+          "x": "29",
+          "y": "36"
+        },
+        {
+          "x": "30",
+          "y": "40"
+        },
+        {
+          "x": "31",
+          "y": "23"
+        },
+        {
+          "x": "24",
+          "y": "23"
+        },
+        {
+          "x": "20",
+          "y": "22"
+        },
+        {
+          "x": "24",
+          "y": "38"
+        },
+        {
+          "x": "37",
+          "y": "30"
+        },
+        {
+          "x": "38",
+          "y": "32"
+        },
+        {
+          "x": "32",
+          "y": "24"
+        },
+        {
+          "x": "40",
+          "y": "21"
+        },
+        {
+          "x": "33",
+          "y": "40"
+        },
+        {
+          "x": "29",
+          "y": "37"
+        },
+        {
+          "x": "24",
+          "y": "34"
+        },
+        {
+          "x": "24",
+          "y": "26"
+        },
+        {
+          "x": "35",
+          "y": "29"
+        },
+        {
+          "x": "35",
+          "y": "21"
+        },
+        {
+          "x": "28",
+          "y": "21"
+        },
+        {
+          "x": "40",
+          "y": "32"
+        },
+        {
+          "x": "29",
+          "y": "26"
+        },
+        {
+          "x": "30",
+          "y": "40"
+        },
+        {
+          "x": "37",
+          "y": "22"
+        },
+        {
+          "x": "40",
+          "y": "32"
+        },
+        {
+          "x": "38",
+          "y": "32"
+        },
+        {
+          "x": "24",
+          "y": "23"
+        },
+        {
+          "x": "40",
+          "y": "24"
+        },
+        {
+          "x": "33",
+          "y": "23"
+        },
+        {
+          "x": "24",
+          "y": "33"
+        },
+        {
+          "x": "23",
+          "y": "40"
+        },
+        {
+          "x": "27",
+          "y": "29"
+        },
+        {
+          "x": "31",
+          "y": "32"
+        },
+        {
+          "x": "31",
+          "y": "31"
+        },
+        {
+          "x": "30",
+          "y": "33"
+        },
+        {
+          "x": "40",
+          "y": "20"
+        },
+        {
+          "x": "21",
+          "y": "33"
+        },
+        {
+          "x": "38",
+          "y": "35"
+        },
+        {
+          "x": "33",
+          "y": "23"
+        },
+        {
+          "x": "39",
+          "y": "28"
+        },
+        {
+          "x": "33",
+          "y": "26"
+        },
+        {
+          "x": "38",
+          "y": "33"
+        },
+        {
+          "x": "22",
+          "y": "24"
+        },
+        {
+          "x": "32",
+          "y": "23"
+        },
+        {
+          "x": "35",
+          "y": "35"
+        },
+        {
+          "x": "32",
+          "y": "39"
+        },
+        {
+          "x": "39",
+          "y": "33"
+        },
+        {
+          "x": "40",
+          "y": "35"
+        },
+        {
+          "x": "24",
+          "y": "31"
+        },
+        {
+          "x": "26",
+          "y": "28"
+        },
+        {
+          "x": "34",
+          "y": "31"
+        },
+        {
+          "x": "25",
+          "y": "37"
+        },
+        {
+          "x": "33",
+          "y": "32"
+        },
+        {
+          "x": "34",
+          "y": "30"
+        },
+        {
+          "x": "26",
+          "y": "24"
+        },
+        {
+          "x": "36",
+          "y": "30"
+        },
+        {
+          "x": "25",
+          "y": "33"
+        },
+        {
+          "x": "26",
+          "y": "40"
+        },
+        {
+          "x": "39",
+          "y": "35"
+        },
+        {
+          "x": "23",
+          "y": "25"
+        },
+        {
+          "x": "22",
+          "y": "36"
+        },
+        {
+          "x": "31",
+          "y": "34"
+        },
+        {
+          "x": "32",
+          "y": "32"
+        },
+        {
+          "x": "22",
+          "y": "21"
+        },
+        {
+          "x": "28",
+          "y": "25"
+        },
+        {
+          "x": "31",
+          "y": "40"
+        },
+        {
+          "x": "37",
+          "y": "33"
+        }]
+    }
+  }
